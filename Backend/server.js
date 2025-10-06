@@ -27,7 +27,7 @@ const allowedOrigins = [
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: allowedOrigins, 
+  origin: 'http://localhost:5173', 
   credentials: true, 
 }));
 
