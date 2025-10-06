@@ -11,7 +11,7 @@ import authSeller from "../middlewares/authSeller.js";
 const productRouter = express.Router();
 
 productRouter.post("/add", upload.array("images"), authSeller, addProduct); // Fix: Use string 'images'
-productRouter.get("/list", authSeller, productList); // Add authSeller if needed
+productRouter.get("/list", productList); // Add authSeller if needed
 productRouter.get("/:id", authSeller, productById); // Fix: Use URL parameter
 productRouter.post("/stock", authSeller, changeStock);
 
