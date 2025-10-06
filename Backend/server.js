@@ -25,7 +25,7 @@ await connectCloudinary();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://faizffy-store-frontend.vercel.app/', 
+  origin: 'https://faizffy-store-frontend.vercel.app', 
   credentials: true, 
 }));
 
