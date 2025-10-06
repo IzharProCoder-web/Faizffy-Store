@@ -17,15 +17,17 @@ await connectDB();
 await connectCloudinary();
 
 
-//allow multiple origin
-// const allowedOrigins = [
-// ];
+// allow multiple origin
+const allowedOrigins = [
+  'https://faizffy-store-frontend.vercel.app',
+   'http://localhost:5173/',
+];
 
 // Middleware configuration
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://faizffy-store-frontend.vercel.app', 
+  origin: allowedOrigins, 
   credentials: true, 
 }));
 
