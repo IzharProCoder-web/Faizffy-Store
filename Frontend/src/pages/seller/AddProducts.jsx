@@ -48,7 +48,6 @@ const AddProducts = () => {
         setPrice("");
         setOfferPrice("");
         setFiles([]);
-        // Revoke object URLs to prevent memory leaks
         files.forEach((file) => URL.revokeObjectURL(URL.createObjectURL(file)));
       } else {
         toast.error(data.message);

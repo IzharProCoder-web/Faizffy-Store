@@ -10,7 +10,7 @@ export const addProduct = async (req, res) => {
     if (!req.files || req.files.length === 0) {
       return res.json({ success: false, message: "At least one image is required" });
     }
-    if (!productData.name || !productData.description || !productData.category || !productData.price || !productData.offerPrice) {
+    if (!productData.name || !productData.description || !productData.price || !productData.offerPrice) {
       return res.json({ success: false, message: "All fields are required" });
     }
     if (productData.price < 0 || productData.offerPrice < 0) {
