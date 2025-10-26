@@ -9,79 +9,92 @@ const ProductCard = ({ product }) => {
     currency,
     cartItems,
     addToCart,
-    updateCartItem,
     removeFromCart,
     navigate,
   } = useAppContext();
 
   return (
     product && (
-      <div
+      <article
         onClick={() => {
           if (product?._id) {
             navigate(`/products/${product._id}`);
-            scrollTo(0, 0);
+            window.scrollTo(0, 0);
           }
         }}
-        className="border border-gray-500/20 rounded-md px-1 bg-white w-30 md:w-40 "
+        className="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
       >
-        <div className="group cursor-pointer flex items-center justify-center mb-2">
+        {/* ---------- IMAGE ---------- */}
+        <div className=" overflow-hidden bg-gray-50">
           <img
-            className="group-hover:scale-105 transition max-w-30 md:max-w-40 "
-            src={product.image && product.image[0]}
+            src={product.image?.[0] ?? "/placeholder.png"}
             alt={product.name}
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-        <div className="text-gray-500/60 text-sm flex flex-col items-start gap-2 mb-2 px-2">
-          <p className="text-gray-700 font-medium text-lg truncate w-full text-start">
+
+        {/* ---------- CONTENT ---------- */}
+        <div className=" flex flex-col gap-2 text-start mb-2">
+          {/* Title */}
+          <h3 className="truncate text-base font-semibold text-gray-900 text-start">
             {product.name}
-          </p>
-          <div className="flex items-center gap-0.5">
-            {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={`md:w-3.5 w-3 h-3.5 text-black ${i < 4 ? "opacity-100" : "opacity-30"}`}
-                />
-              ))}
-            <p>(4)</p>
+          </h3>
+
+          {/* Rating */}
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            {Array.from({ length: 5 }, (_, i) => (
+              <FaStar
+                key={i}
+                className={`h-4 w-4 ${
+                  i < 4 ? "text-black" : "text-gray-300"
+                }`}
+              />
+            ))}
+            <span className="ml-1">(4)</span>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mt-3">
-            <p className="md:text-xl text-base font-medium text-[#000]">
-              {currency} {product.offerPrice}{" "}
-              <span className="text-gray-500/60 md:text-sm text-xs line-through">
-                {currency}{product.price}
-              </span>
-            </p>
+
+          {/* Price + CTA */}
+          <div className="flex  flex-col  gap-2">
+            <div className="flex items-end gap-2">
+              <p className="text-lg font-bold text-gray-900">
+                {currency}
+                {product.offerPrice}
+              </p>
+              {product.price !== product.offerPrice && (
+                <del className="text-sm text-gray-400">
+                  {currency}
+                  {product.price}
+                </del>
+              )}
+            </div>
+
+            {/* Add / Counter */}
             <div
-              className="text-[#000] w-full md:w-auto"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center w-full"
             >
               {!cartItems[product._id] ? (
                 <button
-                  className="flex items-center justify-center gap-1 bg-indigo-100 border border-indigo-300 w-full md:w-[80px] h-[34px] rounded text-[#000] font-medium mt-3"
                   onClick={() => addToCart(product._id)}
+                  className="flex items-center gap-1.5 rounded-lg bg-black px-3 py-1.5 text-sm font-medium text-white transition "
                 >
-                  <FaShoppingCart className="text-black" />
+                  <FaShoppingCart className="h-4 w-4" />
                   Add
                 </button>
               ) : (
-                <div className="flex items-center justify-center gap-2 w-full md:w-20 h-[34px] bg-[#000]/25 rounded select-none mt-3">
+                <div className="flex h-9 items-center rounded-lg bg-gray-100">
                   <button
                     onClick={() => setCount(() => removeFromCart(product._id))}
-                    className="cursor-pointer text-md px-2 h-full"
+                    className="px-2 text-lg font-semibold text-gray-700 hover:text-gray-900"
                   >
                     -
                   </button>
-                  <span className="w-5 text-center">
+                  <span className="min-w-[2rem] text-center font-medium">
                     {cartItems[product._id]}
                   </span>
                   <button
                     onClick={() => setCount(() => addToCart(product._id))}
-                    className="cursor-pointer text-md px-2 h-full"
+                    className="px-2 text-lg font-semibold text-gray-700 hover:text-gray-900"
                   >
                     +
                   </button>
@@ -90,7 +103,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      </div>
+      </article>
     )
   );
 };

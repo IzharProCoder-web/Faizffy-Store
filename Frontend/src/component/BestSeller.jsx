@@ -36,7 +36,7 @@ const BestSeller = () => {
       </div>
 
       {/* Desktop view - simple grid */}
-      <div className='hidden md:grid md:grid-cols-5 lg:grid-cols-5 mt-6'>
+      <div className='hidden md:flex  items-center justify-center gap-4 mt-6' >
         {products
           .filter((product) => product.inStock)
           .slice(0, 5)
