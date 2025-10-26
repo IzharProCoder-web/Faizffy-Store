@@ -6,6 +6,7 @@ import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const {
     user,
     setUser,
@@ -112,12 +113,50 @@ const Navbar = () => {
           </button>
         </div>
 
+        {!user ? (
+          <button
+            onClick={() => setShowUserLogin(true)}
+            className="cursor-pointer"
+          >
+            <img src={assets.profile_icon} className="w-8" />
+          </button>
+        ) : (
+          <div className="relative">
+            <img 
+              src={assets.profile_icon} 
+              className="w-8 cursor-pointer" 
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+            />
+            {showMobileMenu && (
+              <ul className="absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40">
+                <li
+                  onClick={() => {
+                    navigate("/myOrders");
+                    setShowMobileMenu(false);
+                  }}
+                  className="p-1.5 pl-3 hover:text-white hover:bg-[#000] cursor-pointer"
+                >
+                  My Orders
+                </li>
+                <li
+                  onClick={() => {
+                    logout();
+                    setShowMobileMenu(false);
+                  }}
+                  className="p-1.5 pl-3 hover:text-white hover:bg-[#000] cursor-pointer"
+                >
+                  Logout
+                </li>
+              </ul>
+            )}
+          </div>
+        )}
+
         <button
           onClick={() => (open ? setOpen(false) : setOpen(true))}
           aria-label="Menu"
           className="sm:hidden"
         >
-          {/* Menu Icon SVG */}
           <img src={assets.menu_icon} />
         </button>
       </div>
@@ -136,14 +175,14 @@ const Navbar = () => {
             All Products
           </NavLink>
           {user && (
-            <NavLink to="/products" onClick={() => setOpen(false)}>
-              My Orders{" "}
+            <NavLink to="/myOrders" onClick={() => setOpen(false)}>
+              My Orders
             </NavLink>
           )}
           <NavLink to="/contact" onClick={() => setOpen(false)}>
             Contact
           </NavLink>
-          {!user ? (
+          {!user && (
             <button
               onClick={() => {
                 setOpen(false);
@@ -152,13 +191,6 @@ const Navbar = () => {
               className="cursor-pointer px-6 py-2 mt-2 bg-[#000] hover:bg-[#000] transition text-white rounded-full text-sm"
             >
               Login
-            </button>
-          ) : (
-            <button
-              onClick={logout}
-              className="cursor-pointer px-6 py-2 mt-2 bg-[#000] hover:bg-[#000] transition text-white rounded-full text-sm"
-            >
-              Logout
             </button>
           )}
         </div>
