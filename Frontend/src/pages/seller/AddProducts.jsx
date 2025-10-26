@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { assets, categories } from "../../assets/assets";
+import { assets } from "../../assets/assets"; // Remove categories import
 import toast from "react-hot-toast";
 import { useAppContext } from "../../context/AppContext";
 
@@ -8,7 +7,6 @@ const AddProducts = () => {
   const [files, setFiles] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
 
@@ -23,10 +21,6 @@ const AddProducts = () => {
         toast.error("At least one image is required");
         return;
       }
-      if (!category) {
-        toast.error("Category is required");
-        return;
-      }
       if (!description) {
         toast.error("Description is required");
         return;
@@ -35,7 +29,6 @@ const AddProducts = () => {
       const productData = {
         name,
         description: description.split("\n"),
-        category: [category],
         price: Number(price),
         offerPrice: Number(offerPrice),
       };
@@ -52,7 +45,6 @@ const AddProducts = () => {
         toast.success(data.message);
         setName("");
         setDescription("");
-        setCategory("");
         setPrice("");
         setOfferPrice("");
         setFiles([]);
@@ -141,25 +133,6 @@ const AddProducts = () => {
             placeholder="Type here"
             required
           ></textarea>
-        </div>
-        <div className="w-full flex flex-col gap-1">
-          <label className="text-base font-medium text-black" htmlFor="category">
-            Category
-          </label>
-          <select
-            onChange={(e) => setCategory(e.target.value)}
-            value={category}
-            id="category"
-            className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 focus:border-black transition"
-            required
-          >
-            <option value="">Select Category</option>
-            {categories.map((item, index) => (
-              <option key={index} value={item.path}>
-                {item.path}
-              </option>
-            ))}
-          </select>
         </div>
         <div className="flex items-center gap-5 flex-wrap">
           <div className="flex-1 flex flex-col gap-1 w-32">
