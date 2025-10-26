@@ -23,17 +23,17 @@ const ProductCard = ({ product }) => {
             scrollTo(0, 0);
           }
         }}
-        className="border border-gray-500/20 rounded-md md:px-4 px-3 py-2 bg-white min-w-50 max-w-50 w-full"
+        className="border border-gray-500/20 rounded-md   px-1 bg-white min-w-50 max-w-50 w-full mb-10"
       >
-        <div className="group cursor-pointer flex items-center justify-center px-2">
+        <div className="group cursor-pointer mb-3 w-full ">
           <img
-            className="group-hover:scale-105 transition max-w-26 md:max-w-36 ml-2 object-contain"
+            className="group-hover:scale-105 transition  "
             src={product.image && product.image[0]}
             alt={product.name}
           />
         </div>
-        <div className="text-gray-500/60 text-sm flex flex-col gap-2">
-          <p className="text-gray-700 font-medium text-lg truncate w-full">
+        <div className="text-gray-500/60 text-sm flex flex-col  mb-2 ml-2">
+          <p className="text-black font-bold  text-lg truncate w-full">
             {product.name}
           </p>
           <div className="flex items-center gap-0.5">
@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
               ))}
             <p>(4)</p>
           </div>
-          <div className="flex items-end justify-between mt-3">
+          <div className="py-4">
             <p className="md:text-xl text-base font-medium text-[#000]">
               {currency} {product.offerPrice}{" "}
               <span className="text-gray-500/60 md:text-sm text-xs line-through">
@@ -55,14 +55,14 @@ const ProductCard = ({ product }) => {
               </span>
             </p>
             <div
-              className="text-[#000]"
+              className="text-[#000] pt-2"
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
               {!cartItems[product._id] ? (
                 <button
-                  className="flex items-center justify-center gap-1 bg-indigo-100 border border-indigo-300 md:w-[80px] w-[64px] h-[34px] rounded text-[#000] font-medium mt-3"
+                  className="flex items-center justify-center gap-1 bg-indigo-100 border border-indigo-300 md:w-[80px] w-[64px] h-[34px] rounded text-[#000] font-medium"
                   onClick={() => addToCart(product._id)}
                 >
                   <FaShoppingCart className="text-black" />

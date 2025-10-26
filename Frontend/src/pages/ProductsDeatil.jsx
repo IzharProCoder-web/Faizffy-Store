@@ -4,13 +4,29 @@ import { Link, useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import ProductCard from "../component/ProductCard";
+// Import Swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 const ProductsDetail = () => {
   const { products, navigate, currency, addToCart } = useAppContext();
   const { id } = useParams();
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const product = products.find((item) => item._id === id);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -26,6 +42,51 @@ const ProductsDetail = () => {
     setThumbnail(product?.image[0] ? product.image[0] : null);
   }, [product]);
 
+  const ProductImages = () => {
+    if (isMobile) {
+      return (
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={10}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          className="w-full h-full"
+        >
+          {product.image.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img 
+                src={image} 
+                alt={`Product ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      );
+    }
+
+    return (
+      <div className="flex gap-3">
+        <div className="flex flex-col gap-3">
+          {product.image.map((image, index) => (
+            <div
+              key={index}
+              onClick={() => setThumbnail(image)}
+              className="border max-w-24 border-gray-300 rounded overflow-hidden cursor-pointer"
+            >
+              <img src={image} alt={`Thumbnail ${index + 1}`} />
+            </div>
+          ))}
+        </div>
+
+        <div className="border border-gray-300 max-w-100 rounded overflow-hidden">
+          <img src={thumbnail} alt="Selected product" />
+        </div>
+      </div>
+    );
+  };
+
   return (
     product && (
       <div className="mt-12">
@@ -40,22 +101,8 @@ const ProductsDetail = () => {
         </p>
 
         <div className="flex flex-col md:flex-row gap-16 mt-4">
-          <div className="flex gap-3">
-            <div className="flex flex-col gap-3">
-              {product.image.map((image, index) => (
-                <div
-                  key={index}
-                  onClick={() => setThumbnail(image)}
-                  className="border max-w-24 border-gray-300 rounded overflow-hidden cursor-pointer"
-                >
-                  <img src={image} alt={`Thumbnail ${index + 1}`} />
-                </div>
-              ))}
-            </div>
-
-            <div className="border border-gray-300 max-w-100 rounded overflow-hidden">
-              <img src={thumbnail} alt="Selected product" />
-            </div>
+          <div className="w-full md:w-1/2">
+            <ProductImages />
           </div>
 
           <div className="text-sm w-full md:w-1/2">
@@ -138,4 +185,5 @@ const ProductsDetail = () => {
     )
   );
 };
+
 export default ProductsDetail;
