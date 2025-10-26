@@ -27,13 +27,12 @@ const ProductCard = ({ product }) => {
       >
         <div className="group cursor-pointer flex items-center justify-center px-2">
           <img
-            className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-            src={product.image[0]}
+            className="group-hover:scale-105 transition max-w-26 md:max-w-36 ml-2 object-contain"
+            src={product.image && product.image[0]}
             alt={product.name}
           />
         </div>
         <div className="text-gray-500/60 text-sm">
-          <p>{product.category}</p>
           <p className="text-gray-700 font-medium text-lg truncate w-full">
             {product.name}
           </p>

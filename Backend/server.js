@@ -18,8 +18,8 @@ await connectCloudinary();
 
 // allow multiple origin
 const allowedOrigins = [
-  "https://faizffy-store-frontend.vercel.app",
   "http://localhost:5173",
+  "https://faizffy-store-frontend.vercel.app",
 ];
 
 // Middleware configuration
