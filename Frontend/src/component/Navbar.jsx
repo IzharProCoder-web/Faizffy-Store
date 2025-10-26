@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { NavLink } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion"; // Import Framer Motion
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa"; // Import React Icons
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -19,19 +23,20 @@ const Navbar = () => {
   } = useAppContext();
 
   const logout = async () => {
-   try {
-     const { data } = await axios.get("/api/user/logout",{withCredentials:true});
-    if (data.success) {
-      setUser(null);
-      navigate("/");
-      toast.success(data.message)
-    }else {
-      toast.error(data.message)
+    try {
+      const { data } = await axios.get("/api/user/logout", { withCredentials: true });
+      if (data.success) {
+        setUser(null);
+        navigate("/");
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
-   }catch (err) {
-    toast.error(err.message)
-   }
   };
+
   useEffect(() => {
     if (searchQuery.length > 0) {
       navigate("/products");
@@ -43,14 +48,14 @@ const Navbar = () => {
       <NavLink to={"/"} className={"flex items-center "}>
         <img className="w-15 h-15" src={assets.logo} alt="Logo" />
         <p className="font-bold">FAIZZIFY</p>
-        
       </NavLink>
 
       {/* Desktop Menu */}
-      <div className=" hidden sm:flex items-center gap-8">
-        <NavLink to="/ "> Home</NavLink>
-        <NavLink to="/products "> All Products</NavLink>
-        <NavLink to="/contact "> Contact</NavLink>
+      <div className="hidden sm:flex items-center gap-8">
+        <NavLink to="/"> Home</NavLink>
+        <NavLink to="/products"> All Products</NavLink>
+        <NavLink to="/contact"> Contact</NavLink>
+        <NavLink to="/faq"> FAQ</NavLink>
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input
@@ -62,10 +67,7 @@ const Navbar = () => {
           <img src={assets.search_icon} className="w-4 h-4" />
         </div>
 
-        <div
-          onClick={() => navigate("/cart")}
-          className="relative cursor-pointer"
-        >
+        <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
           <img src={assets.nav_cart_icon} className="w-6 opacity-80" />
           <button className="absolute -top-2 -right-3 text-xs text-white bg-[#000] w-[18px] h-[18px] rounded-full">
             {getCartCount()}
@@ -103,10 +105,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6 sm:hidden">
-        <div
-          onClick={() => navigate("/cart")}
-          className="relative cursor-pointer"
-        >
+        <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
           <img src={assets.nav_cart_icon} className="w-6 opacity-80" />
           <button className="absolute -top-2 -right-3 text-xs text-white bg-[#000] w-[18px] h-[18px] rounded-full">
             {getCartCount()}
@@ -114,17 +113,14 @@ const Navbar = () => {
         </div>
 
         {!user ? (
-          <button
-            onClick={() => setShowUserLogin(true)}
-            className="cursor-pointer"
-          >
+          <button onClick={() => setShowUserLogin(true)} className="cursor-pointer">
             <img src={assets.profile_icon} className="w-8" />
           </button>
         ) : (
           <div className="relative">
-            <img 
-              src={assets.profile_icon} 
-              className="w-8 cursor-pointer" 
+            <img
+              src={assets.profile_icon}
+              className="w-8 cursor-pointer"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             />
             {showMobileMenu && (
@@ -163,10 +159,11 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div
-          className={`${
-            open ? "flex" : "hidden"
-          } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 justify-center px-5 text-sm md:hidden z-10`}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className={`absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex flex-col  items-start gap-2 justify-center px-5 text-[18px] font-medium md:hidden z-10`}
         >
           <NavLink to="/" onClick={() => setOpen(false)}>
             Home
@@ -182,6 +179,9 @@ const Navbar = () => {
           <NavLink to="/contact" onClick={() => setOpen(false)}>
             Contact
           </NavLink>
+          <NavLink to="/faq" onClick={() => setOpen(false)}>
+            FAQ
+          </NavLink>
           {!user && (
             <button
               onClick={() => {
@@ -193,7 +193,19 @@ const Navbar = () => {
               Login
             </button>
           )}
-        </div>
+          {/* Social Media Icons */}
+          <div className="flex gap-4 mt-4">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebook className="text-xl text-blue-600" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="text-xl text-pink-600" />
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+              <FaTiktok className="text-xl text-black" />
+            </a>
+          </div>
+        </motion.div>
       )}
     </nav>
   );

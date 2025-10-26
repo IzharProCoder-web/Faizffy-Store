@@ -1,7 +1,7 @@
 import React from "react";
 import { assets, footerLinks } from "../assets/assets";
 import { NavLink } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa"; // Updated import
 
 const Footer = () => {
   return (
@@ -35,11 +35,11 @@ const Footer = () => {
                 <FaFacebookF className="w-6 h-6" />
               </a>
               <a
-                href="https://twitter.com"
-                aria-label="Twitter"
+                href="https://tiktok.com" // Updated link
+                aria-label="TikTok" // Updated aria-label
                 className="text-gray-500 hover:text-gray-900 transition-colors duration-300"
               >
-                <FaTwitter className="w-6 h-6" />
+                <FaTiktok className="w-6 h-6" />
               </a>
               <a
                 href="https://instagram.com"
