@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
         {/* ---------- CONTENT ---------- */}
         <div className=" flex flex-col gap-2 text-start mb-2">
           {/* Title */}
-          <h3 className="truncate text-base font-semibold text-gray-900 text-start">
+          <h3 className="truncate text-[18px] font-semibold pt-2 text-gray-900 text-start">
             {product.name}
           </h3>
 
