@@ -20,8 +20,8 @@ import box_icon from "./box_icon.svg";
 import trust_icon from "./trust_icon.svg";
 import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
-import main_banner_bg from "./hero-banner-2.jpg";
-import main_banner_bg_sm from "./main-banner-sm.png";
+import main_banner_bg from "./hero-banner-1.jpg";
+import main_banner_bg_next from "./hero-banner-next.jpg";
 import bottom_banner_image from "./bottom-banner.png";
 import bottom_banner_image_sm from "./bottom-banner-sm.png";
 import add_address_iamge from "./add_address_image.svg";
@@ -87,11 +87,11 @@ export const assets = {
   black_arrow_icon,
   white_arrow_icon,
   main_banner_bg,
-  main_banner_bg_sm,
   bottom_banner_image,
   bottom_banner_image_sm,
   add_address_iamge,
   box_icon,
+  main_banner_bg_next,
 };
 
 export const categories = [
