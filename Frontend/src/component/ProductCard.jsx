@@ -18,20 +18,22 @@ const ProductCard = ({ product }) => {
     product && (
       <div
         onClick={() => {
-          navigate(`/products/${product._id}`);
-          scrollTo(0, 0);
+          if (product?._id) {
+            navigate(`/products/${product._id}`);
+            scrollTo(0, 0);
+          }
         }}
-        className="border border-gray-500/20 rounded-lg p-2 bg-white w-full"
+        className="border border-gray-500/20 rounded-md px-1 bg-white w-30 md:w-40 "
       >
-        <div className="group cursor-pointer mb-2 w-full">
+        <div className="group cursor-pointer flex items-center justify-center mb-2">
           <img
-            className="w-full h-32 object-contain group-hover:scale-105 transition"
+            className="group-hover:scale-105 transition max-w-30 md:max-w-40 "
             src={product.image && product.image[0]}
             alt={product.name}
           />
         </div>
-        <div className="space-y-1">
-          <p className="text-black font-medium text-sm truncate">
+        <div className="text-gray-500/60 text-sm flex flex-col items-start gap-2 mb-2 px-2">
+          <p className="text-gray-700 font-medium text-lg truncate w-full text-start">
             {product.name}
           </p>
           <div className="flex items-center gap-0.5">
@@ -40,47 +42,46 @@ const ProductCard = ({ product }) => {
               .map((_, i) => (
                 <FaStar
                   key={i}
-                  className={`w-3 h-3 ${
-                    i < 4 ? "text-yellow-400" : "text-gray-300"
-                  }`}
+                  className={`md:w-3.5 w-3 h-3.5 text-black ${i < 4 ? "opacity-100" : "opacity-30"}`}
                 />
               ))}
-            <p className="text-xs text-gray-500">(4)</p>
+            <p>(4)</p>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <span className="font-medium">{currency}{product.offerPrice}</span>
-              <span className="text-xs text-gray-500 line-through ml-1">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mt-3">
+            <p className="md:text-xl text-base font-medium text-[#000]">
+              {currency} {product.offerPrice}{" "}
+              <span className="text-gray-500/60 md:text-sm text-xs line-through">
                 {currency}{product.price}
               </span>
-            </div>
+            </p>
             <div
+              className="text-[#000] w-full md:w-auto"
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
               {!cartItems[product._id] ? (
                 <button
-                  className="flex items-center gap-1 bg-black/10 px-3 py-1.5 rounded-full text-xs"
+                  className="flex items-center justify-center gap-1 bg-indigo-100 border border-indigo-300 w-full md:w-[80px] h-[34px] rounded text-[#000] font-medium mt-3"
                   onClick={() => addToCart(product._id)}
                 >
-                  <FaShoppingCart className="w-3 h-3" />
+                  <FaShoppingCart className="text-black" />
                   Add
                 </button>
               ) : (
-                <div className="flex items-center bg-black/10 rounded-full">
+                <div className="flex items-center justify-center gap-2 w-full md:w-20 h-[34px] bg-[#000]/25 rounded select-none mt-3">
                   <button
                     onClick={() => setCount(() => removeFromCart(product._id))}
-                    className="px-2 py-1 text-sm"
+                    className="cursor-pointer text-md px-2 h-full"
                   >
                     -
                   </button>
-                  <span className="text-xs w-4 text-center">
+                  <span className="w-5 text-center">
                     {cartItems[product._id]}
                   </span>
                   <button
                     onClick={() => setCount(() => addToCart(product._id))}
-                    className="px-2 py-1 text-sm"
+                    className="cursor-pointer text-md px-2 h-full"
                   >
                     +
                   </button>
