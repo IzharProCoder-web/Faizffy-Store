@@ -18,12 +18,10 @@ const ProductCard = ({ product }) => {
     product && (
       <div
         onClick={() => {
-          if (product?.category) {
-            navigate(`/products/${product.category.toString().toLowerCase()}/${product._id}`);
-            scrollTo(0, 0);
-          }
+          navigate(`/products/${product._id}`);
+          scrollTo(0, 0);
         }}
-        className="border border-gray-500/20 rounded-md   px-1 bg-white min-w-50 max-w-50 w-full mb-10"
+        className="border border-gray-500/20 rounded-md px-1 bg-white min-w-50 max-w-50 w-full mb-10"
       >
         <div className="group cursor-pointer mb-3 w-full ">
           <img

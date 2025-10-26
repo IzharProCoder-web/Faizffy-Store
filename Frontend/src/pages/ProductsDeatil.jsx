@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import ProductCard from "../component/ProductCard";
-// Import Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -30,13 +28,15 @@ const ProductsDetail = () => {
 
   useEffect(() => {
     if (products.length > 0) {
-      let productsCopy = products.slice();
-      productsCopy = productsCopy.filter(
-        (item) => product.category === item.category
-      );
-      setRelatedProducts(productsCopy.slice(0, 5));
+      // Get random products instead of category-based filtering
+      let productsCopy = products.slice()
+        .filter(item => item._id !== product._id) // Exclude current product
+        .sort(() => Math.random() - 0.5) 
+        .slice(0, 5); // Get first 5 items
+    
+      setRelatedProducts(productsCopy);
     }
-  }, [products]);
+  }, [products, product]);
 
   useEffect(() => {
     setThumbnail(product?.image[0] ? product.image[0] : null);
@@ -93,11 +93,7 @@ const ProductsDetail = () => {
         <p>
           <Link to={"/"} className="text-black hover:text-gray-600">Home</Link> /
           <Link to={"/products"} className="text-black hover:text-gray-600"> Products</Link> /
-          <Link to={`/products/${products?.category?.toLowerCase()}`} className="text-black hover:text-gray-600">
-            {" "}
-            {product.category}
-          </Link>{" "}
-          /<span className="text-black"> {product.name}</span>
+          <span className="text-black"> {product.name}</span>
         </p>
 
         <div className="flex flex-col md:flex-row gap-16 mt-4">
