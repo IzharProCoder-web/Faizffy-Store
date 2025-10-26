@@ -6,7 +6,7 @@ const BestSeller = () => {
 
   const {products} = useAppContext()
   return (
-    <div className='mt-16 '> 
+    <div className='mt-16 px-6 md:px-16 lg:px-24 xl:px-32  '> 
     <p className='text-2xl md:text-3xl font-medium'>Best Sellers</p>
     <div> 
     </div>

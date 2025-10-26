@@ -18,15 +18,17 @@ import AddProducts from "./pages/seller/AddProducts";
 import ProductsList from "./pages/seller/ProductsList";
 import Order from "./pages/seller/Order";
 const App = () => {
-  const isSellerPath = useLocation().pathname.includes("seller")
-  const {showUserLogin, isSeller } =  useAppContext()
+  const isSellerPath = useLocation().pathname.includes("seller");
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const {showUserLogin, isSeller } =  useAppContext();
+
   return (
-    <div className="text-default min-h-screen text-gray-700 bg-white ">
-    
-      {isSellerPath ?null : <Navbar />}
+    <div className="text-default min-h-screen text-gray-700 bg-white">
+      {isSellerPath ? null : <Navbar />}
       {showUserLogin ? <Login /> : null}
       <Toaster />
-      <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+      <div className={`${isSellerPath ? "" : isHomePage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/products" element={<AllProducts />} />
@@ -36,16 +38,13 @@ const App = () => {
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/myOrders" element={<MyOrders />} />
           <Route path='/seller' element={isSeller ? <SellerLayout />  : <SellerLogin/>}>
-          <Route index element={isSeller ? <AddProducts /> : null} /> 
-          <Route path="/seller/product-list" element={<ProductsList />} /> 
-          <Route path="/seller/product-list" element={<ProductsList />} /> 
-          <Route path="/seller/orders" element={<Order />} /> 
-
-            </Route>
+            <Route index element={isSeller ? <AddProducts /> : null} /> 
+            <Route path="/seller/product-list" element={<ProductsList />} /> 
+            <Route path="/seller/orders" element={<Order />} /> 
+          </Route>
         </Routes>
       </div>
-
-      {!isSellerPath  && <Footer /> }
+      {!isSellerPath && <Footer />}
     </div>
   );
 };

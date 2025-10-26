@@ -2,7 +2,7 @@ import React from 'react';
 
 const WhyWeAreTheBest = () => {
   return (
-    <section className="py-16 bg-gradient-to-r from-gray-100 to-gray-200 my-16">
+    <section className="py-16 bg-gradient-to-r from-gray-100 to-gray-200 my-16 px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Why We Are The Best</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

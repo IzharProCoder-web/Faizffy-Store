@@ -16,20 +16,23 @@ const Port = process.env.PORT;
 await connectDB();
 await connectCloudinary();
 
-
 // allow multiple origin
 const allowedOrigins = [
-  'https://faizffy-store-frontend.vercel.app',
-   'http://localhost:5173',
+  "https://faizffy-store-frontend.vercel.app",
+  "http://localhost:5173",
 ];
 
 // Middleware configuration
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: 'https://faizffy-store-frontend.vercel.app', 
-  credentials: true, 
-}));
+app.use(
+  cors({
+    origin: "https://faizffy-store-frontend.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  })
+);
 
 app.use("/api/user", userRouter);
 app.use("/api/seller", sellerRouter);
@@ -43,6 +46,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(Port || 4000, () => {
-  
   console.log(`Server Is Running On Port http://localhost:${Port}`);
 });

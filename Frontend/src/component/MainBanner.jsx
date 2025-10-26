@@ -1,16 +1,14 @@
 import React from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules'; // Remove Navigation import
+import { Autoplay, Pagination } from 'swiper/modules';
 import { assets } from "../assets/assets";
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-// Remove navigation CSS import
 
 const MainBanner = () => {
   return (
-    <div className="relative">
+    <div className="w-full  h-full">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -21,14 +19,22 @@ const MainBanner = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Autoplay, Pagination]} // Remove Navigation from modules
-        className="mySwiper"
+        modules={[Autoplay, Pagination]}
+        className="mySwiper w-full m-0 p-0"
       >
-        <SwiperSlide>
-          <img src={assets.main_banner_bg} className="w-full" alt="Banner 1" />
+        <SwiperSlide className="w-full 2xl:h-[600px] xl:h-[350px] lg:h-[300px] md:h-[300px] sm:h-[250px] h-full">
+          <img 
+            src={assets.main_banner_bg} 
+            className="w-full h-full object-cover object-center" 
+            alt="Banner 1" 
+          />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={assets.main_banner_bg_next} className="w-full" alt="Banner 2" />
+        <SwiperSlide className="w-full h-full">
+          <img 
+            src={assets.main_banner_bg_next} 
+            className="w-full h-full object-cover object-center" 
+            alt="Banner 2" 
+          />
         </SwiperSlide>
       </Swiper>
     </div>
