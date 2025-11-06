@@ -73,7 +73,7 @@ const AllProducts = () => {
             ))
           : // Optional: Empty state
             <p className="col-span-full text-center text-gray-500">
-              No products found.
+             
             </p>}
       </div>
     </div>
