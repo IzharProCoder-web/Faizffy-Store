@@ -13,6 +13,14 @@ const ProductCard = ({ product }) => {
     navigate,
   } = useAppContext();
 
+  // Skeleton loader component for image
+  const ImageSkeleton = () => (
+    <div className="h-full w-full bg-gray-200 animate-pulse" />
+  );
+
+  // Determine if image is missing
+  const hasImage = product?.image?.[0] && product.image[0] !== "/placeholder.png";
+
   return (
     product && (
       <article
@@ -22,19 +30,23 @@ const ProductCard = ({ product }) => {
             window.scrollTo(0, 0);
           }
         }}
-        className="group cursor-pointer overflow-hidden  border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+        className="group cursor-pointer overflow-hidden border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
       >
         {/* ---------- IMAGE ---------- */}
-        <div className=" overflow-hidden bg-gray-50">
-          <img
-            src={product.image?.[0] ?? "/placeholder.png"}
-            alt={product.name}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-          />
+        <div className="overflow-hidden bg-gray-50">
+          {hasImage ? (
+            <img
+              src={product.image[0]}
+              alt={product.name}
+              className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <ImageSkeleton />
+          )}
         </div>
 
         {/* ---------- CONTENT ---------- */}
-        <div className=" flex flex-col gap-2 text-start mb-2">
+        <div className="flex flex-col gap-2 text-start mb-2 px-4">
           {/* Title */}
           <h3 className="truncate text-[18px] font-semibold pt-2 text-gray-900 text-start">
             {product.name}
@@ -54,7 +66,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           {/* Price + CTA */}
-          <div className="flex  flex-col  gap-2">
+          <div className="flex flex-col gap-2">
             <div className="flex items-end gap-2">
               <p className="text-lg font-bold text-gray-900">
                 {currency}
@@ -76,7 +88,7 @@ const ProductCard = ({ product }) => {
               {!cartItems[product._id] ? (
                 <button
                   onClick={() => addToCart(product._id)}
-                  className="flex items-center gap-1.5 rounded-lg bg-black px-3 py-1.5 text-sm font-medium text-white transition "
+                  className="flex items-center gap-1.5 rounded-lg bg-black px-3 py-1.5 text-sm font-medium text-white transition"
                 >
                   <FaShoppingCart className="h-4 w-4" />
                   Add

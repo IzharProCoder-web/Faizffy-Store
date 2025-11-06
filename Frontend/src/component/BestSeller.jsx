@@ -8,9 +8,6 @@ import { FreeMode } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 
-/* -------------------------------------------------
-   Skeleton Card – matches your exact card size
-------------------------------------------------- */
 const SkeletonCard = () => (
   <div className="border border-gray-500/20  px-1 bg-white w-30 md:w-40 animate-pulse">
     <div className="group flex items-center justify-center mb-2">
