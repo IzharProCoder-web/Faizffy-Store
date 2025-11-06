@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./component/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from "react-hot-toast";
 import Footer from "./component/Footer";
 import { useAppContext } from "./context/AppContext";
 import Login from "./component/Login";
@@ -19,20 +19,36 @@ import Order from "./pages/seller/Order";
 import ContactUS from "./pages/ContactUS";
 import FAQ from "./pages/FAQ";
 
+// ---------- NEW IMPORTS ----------
+import FirstOrderPopup from "./component/FirstOrderPopup";
+import useFirstOrderPopup from "./hooks/useFirstOrderPopup";
+// ----------------------------------
+
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const {showUserLogin, isSeller } =  useAppContext();
+  const { showUserLogin, isSeller } = useAppContext();
+
+  // ---- POPUP LOGIC ----
+  const { open, close } = useFirstOrderPopup();
 
   return (
     <div className="text-default min-h-screen text-gray-700 bg-white">
       {isSellerPath ? null : <Navbar />}
       {showUserLogin ? <Login /> : null}
       <Toaster />
-      <div className={`${isSellerPath ? "" : isHomePage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+
+      {/* POPUP */}
+      {open && <FirstOrderPopup onClose={close} />}
+
+      <div
+        className={`${
+          isSellerPath ? "" : isHomePage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"
+        }`}
+      >
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactUS />} />
           <Route path="/faq" element={<FAQ />} />
 
@@ -41,13 +57,17 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/myOrders" element={<MyOrders />} />
-          <Route path='/seller' element={isSeller ? <SellerLayout />  : <SellerLogin/>}>
-            <Route index element={isSeller ? <AddProducts /> : null} /> 
-            <Route path="/seller/product-list" element={<ProductsList />} /> 
-            <Route path="/seller/orders" element={<Order />} /> 
+          <Route
+            path="/seller"
+            element={isSeller ? <SellerLayout /> : <SellerLogin />}
+          >
+            <Route index element={isSeller ? <AddProducts /> : null} />
+            <Route path="/seller/product-list" element={<ProductsList />} />
+            <Route path="/seller/orders" element={<Order />} />
           </Route>
         </Routes>
       </div>
+
       {!isSellerPath && <Footer />}
     </div>
   );

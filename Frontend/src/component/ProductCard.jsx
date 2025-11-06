@@ -5,6 +5,8 @@ import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
   const [count, setCount] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+
   const {
     currency,
     cartItems,
@@ -18,7 +20,7 @@ const ProductCard = ({ product }) => {
     <div className="h-full w-full bg-gray-200 animate-pulse" />
   );
 
-  // Determine if image is missing
+  // Determine if image should be shown (not placeholder)
   const hasImage = product?.image?.[0] && product.image[0] !== "/placeholder.png";
 
   return (
@@ -33,13 +35,21 @@ const ProductCard = ({ product }) => {
         className="group cursor-pointer overflow-hidden border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
       >
         {/* ---------- IMAGE ---------- */}
-        <div className="overflow-hidden bg-gray-50">
+        <div className="relative overflow-hidden bg-gray-50">
           {hasImage ? (
-            <img
-              src={product.image[0]}
-              alt={product.name}
-              className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            />
+            <>
+              {imageLoading && <ImageSkeleton />}
+              <img
+                src={product.image[0]}
+                alt={product.name}
+                onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
+                className={`h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 ${
+                  imageLoading ? "opacity-0" : "opacity-100"
+                }`}
+                style={{ position: imageLoading ? "absolute" : "relative" }}
+              />
+            </>
           ) : (
             <ImageSkeleton />
           )}
