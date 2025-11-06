@@ -11,7 +11,7 @@ export const register = async (req, res) => {
         .json({ success: false, message: "All fields are required" });
     }
 
-    const existingUser = await User.findOne({ email }); // Added await
+    const existingUser = await User.findOne({ email }); 
     if (existingUser) {
       return res
         .status(400)

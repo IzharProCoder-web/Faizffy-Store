@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
             window.scrollTo(0, 0);
           }
         }}
-        className="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+        className="group cursor-pointer overflow-hidden  border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
       >
         {/* ---------- IMAGE ---------- */}
         <div className=" overflow-hidden bg-gray-50">

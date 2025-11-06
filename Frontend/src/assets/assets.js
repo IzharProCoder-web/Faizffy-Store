@@ -21,7 +21,9 @@ import trust_icon from "./trust_icon.svg";
 import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
 import main_banner_bg from "./hero-banner-1.jpg";
+import main_banner_bg_sm from "./hero-banner-1-sm.png";
 import main_banner_bg_next from "./hero-banner-next.jpg";
+import main_banner_bg_next_sm from "./herp-banner-next-sm.png";
 import bottom_banner_image from "./bottom-banner.png";
 import bottom_banner_image_sm from "./bottom-banner-sm.png";
 import add_address_iamge from "./add_address_image.svg";
@@ -86,12 +88,15 @@ export const assets = {
   trust_icon,
   black_arrow_icon,
   white_arrow_icon,
-  main_banner_bg,
   bottom_banner_image,
   bottom_banner_image_sm,
   add_address_iamge,
   box_icon,
   main_banner_bg_next,
+  main_banner_bg_sm,
+  main_banner_bg_next_sm,
+  main_banner_bg,
+
 };
 
 export const categories = [
@@ -835,3 +840,84 @@ export const dummyOrders = [
     updatedAt: "2025-03-25T07:17:13.068Z",
   },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Autoplay, Pagination } from "swiper/modules";
+// import { assets } from "../assets/assets";
+
+// import "swiper/css";
+// import "swiper/css/pagination";
+
+// const MainBanner = () => {
+//   return (
+//     <div className="w-full xl:h-[350px] lg:h-[300px] md:h-[300px] sm:h-[250px] xs:h-[200px]">
+//       <Swiper
+//         spaceBetween={0}
+//         centeredSlides={true}
+//         autoplay={{
+//           delay: 5000,
+//           disableOnInteraction: false,
+//         }}
+//         pagination={{
+//           clickable: true,
+//         }}
+//         modules={[Autoplay, Pagination]}
+//         className="mySwiper w-full m-0 p-0"
+//       >
+//         <SwiperSlide className="w-full  h-full">
+//           <img
+//             src={assets.main_banner_bg}
+//             className="w-full h-full object-cover object-center"
+//             alt="Banner 1"
+//           />
+//         </SwiperSlide>
+//         <SwiperSlide className="w-full h-full">
+//           <img
+//             src={assets.main_banner_bg_next}
+//             className="w-full h-full object-cover object-center"
+//             alt="Banner 2"
+//           />
+//         </SwiperSlide>
+//       </Swiper>
+//     </div>
+//   );
+// };
+
+// export default MainBanner;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
