@@ -1,5 +1,5 @@
-import cookieParser from "cookie-parser";
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./configs/db.js";
 import "dotenv/config";
@@ -10,6 +10,7 @@ import productRouter from "./routes/productRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import addressRouter from "./routes/addressRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
+
 const app = express();
 const Port = process.env.PORT;
 
@@ -40,6 +41,7 @@ app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/order", orderRouter);
+
 
 app.get("/", (req, res) => {
   res.send("Api is working ");

@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema(
     amount: { type: Number, required: true, min: 0 },
     address: { type: mongoose.Schema.Types.ObjectId, ref: "Address", required: true },
     paymentType: { type: String, required: true, enum: ["cod", "online"] },
-    status: { type: String, default: "pending", enum: ["pending", "confirmed", "shipped", "delivered", "cancelled"] },
+    status: { type: String, default: "pending", enum: ["pending", "confirmed", "delivered", "cancelled"] },
     isPaid: { type: Boolean, default: false },
   },
   { timestamps: true }
