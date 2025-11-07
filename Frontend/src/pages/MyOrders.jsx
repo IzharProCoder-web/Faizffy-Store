@@ -4,22 +4,22 @@ import { useAppContext } from "../context/AppContext";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
-  const [loading, setLoading] = useState(true); // Added
+  const [loading, setLoading] = useState(true);
   const { currency, axios, user } = useAppContext();
 
   const fetchMyOrders = async () => {
-    setLoading(true); // Start loader
+    setLoading(true);
     try {
       const { data } = await axios.get('/api/order/user', { withCredentials: true });
       if (data.success) {
-        setMyOrders(data.orders);
+        setMyOrders(data.orders || []);
       } else {
         console.log(data.message);
       }
     } catch (err) {
-      console.log(err);
+      console.error("Failed to fetch orders:", err);
     } finally {
-      setLoading(false); // Stop loader
+      setLoading(false);
     }
   };
 
@@ -31,7 +31,7 @@ const MyOrders = () => {
     }
   }, [user]);
 
-  // Skeleton Item (same structure as real item)
+  // Skeleton Components (unchanged)
   const SkeletonItem = () => (
     <div className="relative bg-white text-gray-500 border-b border-gray-300 flex flex-col md:flex-row md:items-center justify-between p-4 py-5 md:gap-16 w-full max-w-4xl animate-pulse">
       <div className="flex items-center mb-4 md:mb-0">
@@ -50,12 +50,10 @@ const MyOrders = () => {
     </div>
   );
 
-  // Skeleton Order Card
   const SkeletonOrder = () => (
     <div className="border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl">
       <div className="flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col space-y-2 mb-4">
         <div className="h-4 bg-gray-200 rounded w-40" />
-        <div className="h-4 bg-gray-200 rounded w-32" />
         <div className="h-4 bg-gray-200 rounded w-36" />
       </div>
       <SkeletonItem />
@@ -80,7 +78,7 @@ const MyOrders = () => {
       {/* No Orders */}
       {!loading && myOrders.length === 0 && (
         <div className="text-center py-10 text-gray-500 text-lg">
-          No orders are placed
+          No orders placed yet
         </div>
       )}
 
@@ -88,46 +86,76 @@ const MyOrders = () => {
       {!loading &&
         myOrders.map((order, index) => (
           <div
-            key={index}
+            key={order._id || index}
             className="border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl"
           >
-            <p className="flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col">
-              <span>OrderId: {order._id}</span>
-              <span>Payment: {order.paymentType}</span>
+            {/* Order Header */}
+            <div className="flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col space-y-2 mb-4">
+              <span>Order ID: #{order._id?.slice(-8)}</span>
               <span>
-                Total Amount: {currency}
-                {order.amount}
+                Total: bilg{currency}
+                {order.amount?.toLocaleString() || 0}
               </span>
-            </p>
-            {order.items.map((item, index) => (
-              <div
-                key={index}
-                className={`relative bg-white text-gray-500 ${
-                  order.items && order.items.length !== index + 1 && "border-b"
-                } border-gray-300 flex flex-col md:flex-row md:items-center justify-between p-4 py-5 md:gap-16 w-full max-w-4xl`}
-              >
-                <div className="flex items-center mb-4 md:mb-0">
-                  <div className="bg-gray-100 p-4 rounded-lg">
-                    <img src={item.product.image[0]} className="w-16 h-16" />
+            </div>
+
+            {/* Order Items */}
+            {order.items?.map((item, idx) => {
+              const product = item.product;
+              const hasProduct = product && typeof product === "object";
+
+              return (
+                <div
+                  key={idx}
+                  className={`relative bg-white text-gray-700 ${
+                    order.items.length !== idx + 1 && "border-b"
+                  } border-gray-300 flex flex-col md:flex-row md:items-center justify-between p-4 py-5 md:gap-16 w-full max-w-4xl`}
+                >
+                  <div className="flex items-center mb-4 md:mb-0">
+                    <div className="bg-gray-100 p-2 rounded-lg">
+                      {hasProduct && product.image?.[0] ? (
+                        <img
+                          src={product.image[0]}
+                          alt={product.name || "Product"}
+                          className="w-16 h-16 object-cover rounded"
+                        />
+                      ) : (
+                        <div className="w-16 h-16 bg-gray-300 rounded flex items-center justify-center text-xs text-gray-500">
+                          No Image
+                        </div>
+                      )}
+                    </div>
+                    <div className="ml-4">
+                      <h2 className="text-lg font-medium text-black">
+                        {hasProduct ? product.name : "Product Unavailable"}
+                      </h2>
+                      <p className="text-sm text-gray-500">
+                        {hasProduct ? product.category : "—"}
+                      </p>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    <h2 className="text-xl font-medium text-black">
-                      {item.product.name}
-                    </h2>
-                    <p>Category: {item.product.category}</p>
+
+                  <div className="flex flex-col justify-center md:ml-8 mb-4 md:mb-0 text-sm">
+                    <p>Qty: <strong>{item.quantity || 1}</strong></p>
+                    <p>Status: <strong className="text-orange-600">{order.status || "Pending"}</strong></p>
+                    <p className="text-gray-500">
+                      {new Date(order.createdAt).toLocaleDateString('en-PK')}
+                    </p>
                   </div>
+
+                  <p className="text-black text-lg font-semibold">
+                    {currency}
+                    {hasProduct
+                      ? (product.offerPrice * item.quantity).toLocaleString()
+                      : "—"}
+                  </p>
                 </div>
-                <div className="flex flex-col justify-center md:ml-8 mb-4 md:mb-0">
-                  <p>Quantity: {item.quantity || "1"}</p>
-                  <p>Status: {order.status}</p>
-                  <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-                </div>
-                <p className="text-black text-lg font-medium">
-                  Amount: {currency}
-                  {item.product.offerPrice * item.quantity}
-                </p>
-              </div>
-            ))}
+              );
+            })}
+
+            {/* COD Note */}
+            <div className="mt-4 pt-3 border-t border-gray-200 text-sm text-gray-500 text-right">
+              Payment on Delivery (COD)
+            </div>
           </div>
         ))}
     </div>

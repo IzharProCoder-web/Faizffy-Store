@@ -21,7 +21,7 @@ import trust_icon from "./trust_icon.svg";
 import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
 import main_banner_bg from "./hero-banner-1.jpg";
-import main_banner_bg_sm from "./hero-banner-1-sm.png";
+import main_banner_bg_sm from "./banner-test.png";
 import main_banner_bg_next from "./hero-banner-next.jpg";
 import main_banner_bg_next_sm from "./herp-banner-next-sm.png";
 import bottom_banner_image from "./bottom-banner.png";

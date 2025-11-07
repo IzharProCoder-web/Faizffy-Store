@@ -49,7 +49,7 @@ const BestSeller = () => {
     .slice(0, 5)
 
   return (
-    <div className='mt-16 px-6 md:px-16 lg:px-24 xl:px-32'> 
+    <div className='mt-10 px-6 md:px-16 lg:px-24 xl:px-32'> 
       <p className='text-2xl md:text-3xl font-medium'>Best Sellers</p>
       
       {/* Mobile view with Swiper */}
