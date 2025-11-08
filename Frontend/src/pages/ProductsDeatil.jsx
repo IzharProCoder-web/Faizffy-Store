@@ -321,15 +321,22 @@ const ProductsDetail = () => {
             </div>
           </div>
 
+          <p className="text-[16px] text-gray-700 mb-3 line-clamp-1">Inspire By Scents And Stories</p>
+          
+
           <div className="mb-8">
             <p className="text-lg font-semibold text-gray-900 mb-3">About Product</p>
             <ul className="list-disc ml-5 text-gray-700 space-y-1">
-              {product.description && Array.isArray(product.description) 
-                ? product.description.map((desc, index) => (
-                    <li key={index}>{desc}</li>
+              {product.description ? (
+                product.description
+                  .split('\n')
+                  .filter(line => line.trim().length > 0)
+                  .map((line, index) => (
+                    <li key={index}>{line.trim()}</li>
                   ))
-                : <li>No description available</li>
-              }
+              ) : (
+                <li>No description available</li>
+              )}
             </ul>
           </div>
 

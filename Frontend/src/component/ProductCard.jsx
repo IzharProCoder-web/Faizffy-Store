@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
         {/* ---------- CONTENT SECTION ---------- */}
         <div className="p-3 sm:p-4">
           {/* Product Title */}
-          <h3 className="font-bold text-gray-900 mb-1 text-sm sm:text-base line-clamp-2 leading-tight min-h-[2.5rem]">
+          <h3 className="font-bold text-black text-[16px] sm:text-base ">
             {product.name}
           </h3>
 

@@ -27,6 +27,7 @@ const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const isProductDetailPage = location.pathname.includes("/products/");
   const { showUserLogin, isSeller } = useAppContext();
   const { open, close } = useFirstOrderPopup();
 
@@ -40,7 +41,13 @@ const App = () => {
 
       <div
         className={`${
-          isSellerPath ? "" : isHomePage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"
+          isSellerPath 
+            ? "" 
+            : isHomePage 
+              ? "" 
+              : isProductDetailPage
+                ? ""
+                : "px-6 md:px-16 lg:px-24 xl:px-32"
         }`}
       >
         <Routes>
