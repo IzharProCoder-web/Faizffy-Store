@@ -161,10 +161,11 @@ const Order = () => {
                           {order.address?.street}, {order.address?.city}
                         </p>
                         <p>
-                          {order.address?.state}, {order.address?.zipcode},{' '}
-                          {order.address?.country}
+                          {order.address?.postalCode},{' '}
+                          {order.address?.district}
                         </p>
                         <p>{order.address?.phone}</p>
+                        <p>{order.address?.email}</p>
                       </div>
 
                       {/* ---- Amount ---- */}
