@@ -1,5 +1,5 @@
+// ContactUS.jsx
 import React, { useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
 
 const ContactUS = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +17,6 @@ const ContactUS = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
     console.log('Form submitted:', formData);
   };
 
@@ -91,16 +90,6 @@ const ContactUS = () => {
           This site is protected by reCaptcha and the reCaptcha Privacy Policy and Terms of Service apply.
         </p>
       </form>
-
-      {/* WhatsApp floating button */}
-      <a 
-        href="https://wa.me/+923129167292" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 flex items-center justify-center"
-      >
-        <FaWhatsapp className="w-6 h-6" />
-      </a>
     </div>
   );
 };

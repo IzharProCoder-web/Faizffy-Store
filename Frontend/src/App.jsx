@@ -1,3 +1,4 @@
+// App.jsx
 import React from "react";
 import Navbar from "./component/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -18,19 +19,15 @@ import ProductsList from "./pages/seller/ProductsList";
 import Order from "./pages/seller/Order";
 import ContactUS from "./pages/ContactUS";
 import FAQ from "./pages/FAQ";
-
-// ---------- NEW IMPORTS ----------
 import FirstOrderPopup from "./component/FirstOrderPopup";
 import useFirstOrderPopup from "./hooks/useFirstOrderPopup";
-// ----------------------------------
+import { FaWhatsapp } from "react-icons/fa";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const { showUserLogin, isSeller } = useAppContext();
-
-  // ---- POPUP LOGIC ----
   const { open, close } = useFirstOrderPopup();
 
   return (
@@ -39,7 +36,6 @@ const App = () => {
       {showUserLogin ? <Login /> : null}
       <Toaster />
 
-      {/* POPUP */}
       {open && <FirstOrderPopup onClose={close} />}
 
       <div
@@ -51,7 +47,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactUS />} />
           <Route path="/faq" element={<FAQ />} />
-
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:id" element={<ProductsDeatil />} />
           <Route path="/cart" element={<Cart />} />
@@ -69,6 +64,17 @@ const App = () => {
       </div>
 
       {!isSellerPath && <Footer />}
+
+      {!isSellerPath && (
+        <a 
+          href="https://wa.me/+923129167292" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200 flex items-center justify-center"
+        >
+          <FaWhatsapp className="w-6 h-6" />
+        </a>
+      )}
     </div>
   );
 };
