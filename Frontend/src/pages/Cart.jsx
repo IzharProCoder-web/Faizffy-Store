@@ -32,6 +32,11 @@ const Cart = () => {
       const product = products.find((item) => item._id === key);
       if (product) {
         product.quantity = cartItems[key];
+        // Handle selectedSize if it exists in cart item
+        if (cartItems[key] && typeof cartItems[key] === 'object' && cartItems[key].selectedSize) {
+          product.selectedSize = cartItems[key].selectedSize;
+          product.displayPrice = cartItems[key].displayPrice;
+        }
         tempArray.push(product);
       }
     }
@@ -92,6 +97,8 @@ const Cart = () => {
           items: cartArray.map((item) => ({
             product: item._id,
             quantity: item.quantity,
+            selectedSize: item.selectedSize || '50ml', // Include selected size in order
+            price: item.displayPrice || item.offerPrice // Use display price if available
           })),
           address: selectedAddress,
         });
@@ -111,12 +118,20 @@ const Cart = () => {
 
   useEffect(() => {
     if (!user) {
-      toast.error("Please log in to place an order");
+      // toast.error("Please log in to place an order");
       // navigate("/login");
     } else {
       getUserAddress();
     }
   }, [user]);
+
+  // Calculate price based on selected size or use offerPrice
+  const getProductPrice = (product) => {
+    if (product.displayPrice) {
+      return product.displayPrice * product.quantity;
+    }
+    return product.offerPrice * product.quantity;
+  };
 
   return products.length > 0 && cartItems ? (
     <div className="flex flex-col md:flex-row mt-16">
@@ -135,7 +150,7 @@ const Cart = () => {
         {cartArray.map((product, index) => (
           <div
             key={index}
-            className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3"
+            className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3 border-b border-gray-200 pb-4"
           >
             <div className="flex items-center md:gap-6 gap-3">
               <div
@@ -153,24 +168,32 @@ const Cart = () => {
                   alt={product.name}
                 />
               </div>
-              <div>
-                <p className="hidden md:block font-semibold">{product.name}</p>
-                <div className="font-normal text-gray-500">
+              <div className="flex-1">
+                <p className="font-semibold text-gray-900 mb-2">{product.name}</p>
+                <div className="font-normal text-gray-500 space-y-1">
+                  {/* Selected Size Section */}
+                  <div className="flex items-center">
+                    <p className="font-medium mr-2">Size:</p>
+                    <span className="bg-gray-100 px-2 py-1 rounded text-sm border border-gray-300">
+                      {product.selectedSize || '50ml'}
+                    </span>
+                  </div>
+                  
                   <p>
                     Weight: <span>{product.weight || "N/A"}</span>
                   </p>
                   <div className="flex items-center">
-                    <p>Qty:</p>
+                    <p className="mr-2">Qty:</p>
                     <select
                       onChange={(e) =>
                         updateCartItem(product._id, Number(e.target.value))
                       }
-                      value={cartItems[product._id]}
-                      className="outline-none"
+                      value={product.quantity}
+                      className="outline-none border border-gray-300 rounded px-2 py-1"
                     >
                       {Array(
-                        cartItems[product._id] > 9
-                          ? cartItems[product._id] > 9
+                        product.quantity > 9
+                          ? product.quantity > 9
                           : 9
                       )
                         .fill("")
@@ -184,12 +207,12 @@ const Cart = () => {
                 </div>
               </div>
             </div>
-            <p className="text-center">
+            <p className="text-center font-semibold text-gray-900">
               {currency}
-              {product.offerPrice * product.quantity}
+              {getProductPrice(product).toFixed(2)}
             </p>
             <button
-              className="cursor-pointer mx-auto"
+              className="cursor-pointer mx-auto hover:bg-gray-100 p-2 rounded-full transition-colors"
               onClick={() => removeFromCart(product._id)}
             >
               <img
@@ -206,11 +229,12 @@ const Cart = () => {
             navigate("/products");
             scrollTo(0, 0);
           }}
-          className="group cursor-pointer flex items-center mt-8 gap-2 text-black font-medium"
+          className="group cursor-pointer flex items-center mt-8 gap-2 text-black font-medium hover:text-gray-700 transition-colors"
         >
           <img
             src={assets.arrow_right_icon_colored}
-            className="group-hover:-translate-x-1 transition"
+            className="group-hover:-translate-x-1 transition-transform"
+            alt="continue shopping"
           />
           Continue Shopping
         </button>
@@ -223,19 +247,19 @@ const Cart = () => {
         <div className="mb-6">
           <p className="text-sm font-medium uppercase">Delivery Address</p>
           <div className="relative flex justify-between items-start mt-2">
-            <p className="text-gray-500">
+            <p className="text-gray-700 text-sm">
               {selectedAddress
-                ? `${selectedAddress.street} ${selectedAddress.city} ${selectedAddress.state} ${selectedAddress.country} `
-                : "No address found"}
+                ? `${selectedAddress.street}, ${selectedAddress.city}, ${selectedAddress.district}, ${selectedAddress.postalCode}`
+                : "Add Address"}
             </p>
             <button
               onClick={() => setShowAddress(!showAddress)}
-              className="text-black hover:underline cursor-pointer"
+              className="text-black hover:underline cursor-pointer text-sm whitespace-nowrap ml-2"
             >
-              Change
+              Add / Change
             </button>
             {showAddress && (
-              <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
+              <div className="absolute top-12 right-0 py-1 bg-white border border-gray-300 text-sm w-full z-10 rounded shadow-lg">
                 {addresses.map((address, index) => (
                   <p
                     key={index}
@@ -243,15 +267,15 @@ const Cart = () => {
                       setSelectedAddress(address);
                       setShowAddress(false);
                     }}
-                    className="text-gray-500 p-2 hover:bg-gray-200"
+                    className="text-gray-500 p-2 hover:bg-gray-200 cursor-pointer"
                   >
-                    {address.street}, {address.city}, {address.state},{" "}
-                    {address.country}
+                    {address.street}, {address.city}, {address.district},{" "}
+                    {address.postalCode}
                   </p>
                 ))}
                 <p
                   onClick={() => navigate("/add-address")}
-                  className="text-black text-center cursor-pointer p-2 hover:bg-gray-200"
+                  className="text-white bg-black text-center cursor-pointer p-2 hover:bg-gray-800"
                 >
                   Add address
                 </p>
@@ -263,10 +287,9 @@ const Cart = () => {
 
           <select
             onChange={(e) => setPaymentOption(e.target.value)}
-            className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none"
+            className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none rounded"
           >
             <option value="COD">Cash On Delivery</option>
-            {/* <option value="Online">Online Payment</option> */}
           </select>
         </div>
 
@@ -277,7 +300,7 @@ const Cart = () => {
             <span>Price</span>
             <span>
               {currency}
-              {getCartAmount()}
+              {getCartAmount().toFixed(2)}
             </span>
           </p>
           <p className="flex justify-between">
@@ -288,26 +311,40 @@ const Cart = () => {
             <span>Tax (2%)</span>
             <span>
               {currency}
-              {(getCartAmount() * 2) / 100}
+              {((getCartAmount() * 2) / 100).toFixed(2)}
             </span>
           </p>
-          <p className="flex justify-between text-lg font-medium mt-3">
+          <p className="flex justify-between text-lg font-medium mt-3 text-gray-900">
             <span>Total Amount:</span>
             <span>
-              {currency} {getCartAmount() + (getCartAmount() * 2) / 100}
+              {currency} {(getCartAmount() + (getCartAmount() * 2) / 100).toFixed(2)}
             </span>
           </p>
         </div>
 
         <button
           onClick={placeOrder}
-          className="w-full py-3 mt-6 cursor-pointer bg-black text-white font-medium hover:bg-gray-800 transition"
+          className="w-full py-3 mt-6 cursor-pointer bg-black text-white font-medium hover:bg-gray-800 transition rounded"
         >
           {paymentOption === "COD" ? "Place Order" : "Proceed to Checkout"}
         </button>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="mt-16 flex flex-col items-center justify-center min-h-96">
+      <h1 className="text-3xl font-medium mb-6">Shopping Cart</h1>
+      <p className="text-gray-500 text-lg mb-6">Your cart is empty</p>
+      <button
+        onClick={() => {
+          navigate("/products");
+          scrollTo(0, 0);
+        }}
+        className="px-6 py-3 bg-black text-white font-medium hover:bg-gray-800 transition rounded"
+      >
+        Continue Shopping
+      </button>
+    </div>
+  );
 };
 
 export default Cart;

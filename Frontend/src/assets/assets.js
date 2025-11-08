@@ -842,6 +842,464 @@ export const dummyOrders = [
 ];
 
 
+export const customerReviews = [
+  {
+    id: 1,
+    name: "Ayesha Khan",
+    age: 28,
+    gender: "female",
+    rating: 5,
+    comment: "Absolutely love this floral perfume! The scent lasts all day and gets me so many compliments.",
+    date: "2024-12-15"
+  },
+  {
+    id: 2,
+    name: "Ali Ahmed",
+    age: 32,
+    gender: "male",
+    rating: 4,
+    comment: "Great woody scent for formal occasions. Not too overpowering, just perfect.",
+    date: "2024-12-10"
+  },
+  {
+    id: 3,
+    name: "Fatima Raza",
+    age: 25,
+    gender: "female",
+    rating: 5,
+    comment: "This citrus perfume is so refreshing! Perfect for summer days in Karachi heat.",
+    date: "2024-12-08"
+  },
+  {
+    id: 4,
+    name: "Bilal Siddiqui",
+    age: 35,
+    gender: "male",
+    rating: 4,
+    comment: "Good value for money. The oriental essence is authentic and long-lasting.",
+    date: "2024-12-05"
+  },
+  {
+    id: 5,
+    name: "Sana Malik",
+    age: 29,
+    gender: "female",
+    rating: 5,
+    comment: "My new favorite! The aromatic blend is simply divine. Will definitely repurchase.",
+    date: "2024-12-01"
+  },
+  {
+    id: 6,
+    name: "Omar Farooq",
+    age: 31,
+    gender: "male",
+    rating: 3,
+    comment: "Decent aqua notes but doesn't last as long as I expected. Okay for the price.",
+    date: "2024-11-28"
+  },
+  {
+    id: 7,
+    name: "Zainab Hashmi",
+    age: 26,
+    gender: "female",
+    rating: 4,
+    comment: "Lovely spicy accents that aren't too strong. Perfect for evening events.",
+    date: "2024-11-25"
+  },
+  {
+    id: 8,
+    name: "Usman Chaudhry",
+    age: 33,
+    gender: "male",
+    rating: 5,
+    comment: "Excellent floral fragrance! My wife loves when I wear this. Highly recommended.",
+    date: "2024-11-20"
+  },
+  {
+    id: 9,
+    name: "Mehak Ali",
+    age: 27,
+    gender: "female",
+    rating: 4,
+    comment: "Beautiful scent that develops nicely over time. Good for daily use.",
+    date: "2024-11-18"
+  },
+  {
+    id: 10,
+    name: "Haris Mahmood",
+    age: 30,
+    gender: "male",
+    rating: 5,
+    comment: "Best woody scent I've ever owned. Projects well without being overwhelming.",
+    date: "2024-11-15"
+  },
+  {
+    id: 11,
+    name: "Rabia Aslam",
+    age: 24,
+    gender: "female",
+    rating: 3,
+    comment: "Nice citrus perfume but the bottle is smaller than I expected.",
+    date: "2024-11-12"
+  },
+  {
+    id: 12,
+    name: "Saad Khan",
+    age: 34,
+    gender: "male",
+    rating: 4,
+    comment: "Good oriental perfume for the price. Lasts about 6-7 hours on my skin.",
+    date: "2024-11-10"
+  },
+  {
+    id: 13,
+    name: "Nadia Sheikh",
+    age: 29,
+    gender: "female",
+    rating: 5,
+    comment: "This aromatic blend is heavenly! Received so many compliments at my sister's wedding.",
+    date: "2024-11-08"
+  },
+  {
+    id: 14,
+    name: "Fahad Raza",
+    age: 36,
+    gender: "male",
+    rating: 4,
+    comment: "Fresh aqua notes perfect for Lahore's weather. Good for office wear.",
+    date: "2024-11-05"
+  },
+  {
+    id: 15,
+    name: "Hina Akhtar",
+    age: 31,
+    gender: "female",
+    rating: 5,
+    comment: "The spicy accents are perfectly balanced. Makes me feel so confident!",
+    date: "2024-11-01"
+  },
+  {
+    id: 16,
+    name: "Kamran Butt",
+    age: 38,
+    gender: "male",
+    rating: 3,
+    comment: "Floral fragrance is nice but fades quickly. Expected better longevity.",
+    date: "2024-10-28"
+  },
+  {
+    id: 17,
+    name: "Sadia Noor",
+    age: 26,
+    gender: "female",
+    rating: 4,
+    comment: "Lovely woody scent for winter evenings. Packaging is also beautiful.",
+    date: "2024-10-25"
+  },
+  {
+    id: 18,
+    name: "Tariq Mehmood",
+    age: 32,
+    gender: "male",
+    rating: 5,
+    comment: "Amazing citrus perfume! Exactly what I was looking for. Fast delivery too.",
+    date: "2024-10-20"
+  },
+  {
+    id: 19,
+    name: "Amina Shah",
+    age: 28,
+    gender: "female",
+    rating: 4,
+    comment: "Nice oriental essence, though a bit strong initially. Settles down nicely.",
+    date: "2024-10-18"
+  },
+  {
+    id: 20,
+    name: "Waqar Hussain",
+    age: 29,
+    gender: "male",
+    rating: 5,
+    comment: "Perfect aromatic blend for special occasions. Worth every rupee!",
+    date: "2024-10-15"
+  },
+  {
+    id: 21,
+    name: "Maria Qureshi",
+    age: 25,
+    gender: "female",
+    rating: 4,
+    comment: "Fresh aqua notes that are perfect for daily use in Islamabad's climate.",
+    date: "2024-10-12"
+  },
+  {
+    id: 22,
+    name: "Asim Iqbal",
+    age: 33,
+    gender: "male",
+    rating: 3,
+    comment: "Spicy accents are good but not exceptional. Average performance.",
+    date: "2024-10-10"
+  },
+  {
+    id: 23,
+    name: "Sara Javed",
+    age: 27,
+    gender: "female",
+    rating: 5,
+    comment: "This floral perfume is absolutely stunning! My signature scent now.",
+    date: "2024-10-08"
+  },
+  {
+    id: 24,
+    name: "Nasir Malik",
+    age: 35,
+    gender: "male",
+    rating: 4,
+    comment: "Good woody scent for business meetings. Professional and sophisticated.",
+    date: "2024-10-05"
+  },
+  {
+    id: 25,
+    name: "Lubna Kareem",
+    age: 30,
+    gender: "female",
+    rating: 5,
+    comment: "Citrus perfume that actually lasts! Perfect for Pakistani summers.",
+    date: "2024-10-01"
+  },
+  {
+    id: 26,
+    name: "Javed Akhtar",
+    age: 40,
+    gender: "male",
+    rating: 4,
+    comment: "Authentic oriental essence. Reminds me of traditional attars but modern.",
+    date: "2024-09-28"
+  },
+  {
+    id: 27,
+    name: "Farah Tariq",
+    age: 26,
+    gender: "female",
+    rating: 3,
+    comment: "Aromatic blend is nice but could be more unique. Still good for the price.",
+    date: "2024-09-25"
+  },
+  {
+    id: 28,
+    name: "Imran Yousuf",
+    age: 31,
+    gender: "male",
+    rating: 5,
+    comment: "Excellent aqua notes! Fresh and clean, perfect for our humid weather.",
+    date: "2024-09-20"
+  },
+  {
+    id: 29,
+    name: "Noreen Asif",
+    age: 29,
+    gender: "female",
+    rating: 4,
+    comment: "Spicy accents that aren't overwhelming. Great for evening parties.",
+    date: "2024-09-18"
+  },
+  {
+    id: 30,
+    name: "Shahid Bashir",
+    age: 37,
+    gender: "male",
+    rating: 5,
+    comment: "Best floral fragrance I've bought online in Pakistan. Will order again!",
+    date: "2024-09-15"
+  },
+  {
+    id: 31,
+    name: "Tahira Moin",
+    age: 32,
+    gender: "female",
+    rating: 4,
+    comment: "Nice woody scent that lasts through the day. Good sillage.",
+    date: "2024-09-12"
+  },
+  {
+    id: 32,
+    name: "Arsalan Ahmed",
+    age: 28,
+    gender: "male",
+    rating: 3,
+    comment: "Citrus perfume is okay, but expected more projection. Average.",
+    date: "2024-09-10"
+  },
+  {
+    id: 33,
+    name: "Samina Rafiq",
+    age: 34,
+    gender: "female",
+    rating: 5,
+    comment: "Oriental essence is pure luxury! Makes me feel so elegant and sophisticated.",
+    date: "2024-09-08"
+  },
+  {
+    id: 34,
+    name: "Rizwan Haider",
+    age: 30,
+    gender: "male",
+    rating: 4,
+    comment: "Good aromatic blend for the price. Better than many expensive brands.",
+    date: "2024-09-05"
+  },
+  {
+    id: 35,
+    name: "Anum Khalid",
+    age: 25,
+    gender: "female",
+    rating: 5,
+    comment: "Aqua notes are so refreshing! Perfect for college and casual outings.",
+    date: "2024-09-01"
+  },
+  {
+    id: 36,
+    name: "Salman Khan",
+    age: 33,
+    gender: "male",
+    rating: 4,
+    comment: "Spicy accents that stand out. Good for weddings and special events.",
+    date: "2024-08-28"
+  },
+  {
+    id: 37,
+    name: "Bushra Arif",
+    age: 27,
+    gender: "female",
+    rating: 3,
+    comment: "Floral perfume is nice but doesn't last as long as I'd like.",
+    date: "2024-08-25"
+  },
+  {
+    id: 38,
+    name: "Adnan Sheikh",
+    age: 29,
+    gender: "male",
+    rating: 5,
+    comment: "Amazing woody scent! My colleagues always ask what I'm wearing.",
+    date: "2024-08-20"
+  },
+  {
+    id: 39,
+    name: "Saima Ilyas",
+    age: 31,
+    gender: "female",
+    rating: 4,
+    comment: "Lovely citrus perfume for summer. Light and refreshing.",
+    date: "2024-08-18"
+  },
+  {
+    id: 40,
+    name: "Kashif Raza",
+    age: 36,
+    gender: "male",
+    rating: 5,
+    comment: "Authentic oriental essence that reminds me of traditional scents.",
+    date: "2024-08-15"
+  },
+  {
+    id: 41,
+    name: "Fiza Aslam",
+    age: 26,
+    gender: "female",
+    rating: 4,
+    comment: "Nice aromatic blend for the price. Good for daily wear.",
+    date: "2024-08-12"
+  },
+  {
+    id: 42,
+    name: "Zubair Ahmed",
+    age: 32,
+    gender: "male",
+    rating: 3,
+    comment: "Aqua notes are good but expected better performance in humidity.",
+    date: "2024-08-10"
+  },
+  {
+    id: 43,
+    name: "Hira Mansoor",
+    age: 28,
+    gender: "female",
+    rating: 5,
+    comment: "Perfect spicy accents for winter! Warm and inviting scent.",
+    date: "2024-08-08"
+  },
+  {
+    id: 44,
+    name: "Danish Malik",
+    age: 34,
+    gender: "male",
+    rating: 4,
+    comment: "Good floral fragrance that's versatile for any occasion.",
+    date: "2024-08-05"
+  },
+  {
+    id: 45,
+    name: "Alia Hassan",
+    age: 29,
+    gender: "female",
+    rating: 5,
+    comment: "Woody scent that's both sophisticated and approachable. Love it!",
+    date: "2024-08-01"
+  },
+  {
+    id: 46,
+    name: "Moiz Tariq",
+    age: 31,
+    gender: "male",
+    rating: 4,
+    comment: "Citrus perfume that's perfect for our hot Pakistani summers.",
+    date: "2024-07-28"
+  },
+  {
+    id: 47,
+    name: "Zara Siddiqui",
+    age: 25,
+    gender: "female",
+    rating: 3,
+    comment: "Oriental essence is nice but a bit too strong for my preference.",
+    date: "2024-07-25"
+  },
+  {
+    id: 48,
+    name: "Hamza Farooq",
+    age: 30,
+    gender: "male",
+    rating: 5,
+    comment: "Excellent aromatic blend! Perfect for dates and special occasions.",
+    date: "2024-07-20"
+  },
+  {
+    id: 49,
+    name: "Mariam Khalil",
+    age: 27,
+    gender: "female",
+    rating: 4,
+    comment: "Fresh aqua notes that are perfect for office wear in Karachi.",
+    date: "2024-07-18"
+  },
+  {
+    id: 50,
+    name: "Baber Aziz",
+    age: 35,
+    gender: "male",
+    rating: 5,
+    comment: "Spicy accents that make a statement. Highly recommended for men!",
+    date: "2024-07-15"
+  }
+];
+
+
+export const getRandomReviews = () => {
+  const shuffled = [...customerReviews].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 4);
+};
 
 
 
@@ -859,65 +1317,3 @@ export const dummyOrders = [
 
 
 
-
-
-
-// import React from "react";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Autoplay, Pagination } from "swiper/modules";
-// import { assets } from "../assets/assets";
-
-// import "swiper/css";
-// import "swiper/css/pagination";
-
-// const MainBanner = () => {
-//   return (
-//     <div className="w-full xl:h-[350px] lg:h-[300px] md:h-[300px] sm:h-[250px] xs:h-[200px]">
-//       <Swiper
-//         spaceBetween={0}
-//         centeredSlides={true}
-//         autoplay={{
-//           delay: 5000,
-//           disableOnInteraction: false,
-//         }}
-//         pagination={{
-//           clickable: true,
-//         }}
-//         modules={[Autoplay, Pagination]}
-//         className="mySwiper w-full m-0 p-0"
-//       >
-//         <SwiperSlide className="w-full  h-full">
-//           <img
-//             src={assets.main_banner_bg}
-//             className="w-full h-full object-cover object-center"
-//             alt="Banner 1"
-//           />
-//         </SwiperSlide>
-//         <SwiperSlide className="w-full h-full">
-//           <img
-//             src={assets.main_banner_bg_next}
-//             className="w-full h-full object-cover object-center"
-//             alt="Banner 2"
-//           />
-//         </SwiperSlide>
-//       </Swiper>
-//     </div>
-//   );
-// };
-
-// export default MainBanner;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////

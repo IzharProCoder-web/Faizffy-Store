@@ -5,7 +5,7 @@ const NewsLetter = () => {
         <div className="px-6 md:px-16 lg:px-24 xl:px-32 flex flex-col items-center justify-center text-center space-y-2 mb-10">
             <h1 className="md:text-4xl text-2xl font-semibold">Never Miss a Deal!</h1>
             <p className="md:text-lg text-gray-500/70 pb-8">
-                Subscribe to get the latest offers, new arrivals, and exclusive discounts
+                Subscribe to get the latest offers, new arrivals, and exclusive discountsw
             </p>
             <form className="flex items-center justify-between max-w-2xl w-full md:h-13 h-12">
                 <input

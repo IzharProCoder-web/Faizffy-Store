@@ -1,27 +1,46 @@
+// addressController.js
 import Address from "../models/Address.js";
 
 export const addAddress = async (req, res) => {
   try {
-    const { firstName, lastName, email, street, city, state, zipcode, country, phone } = req.body;
-    
-    // Validate required fields
-    if (!firstName || !lastName || !email || !street || !city || !state || !zipcode || !country || !phone) {
-      return res.status(400).json({ success: false, message: "All address fields are required" });
+    const {
+      firstName,
+      lastName,
+      email,
+      street,
+      city,
+      district,
+      postalCode,
+      phone,
+    } = req.body;
+
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !street ||
+      !city ||
+      !district ||
+      !postalCode ||
+      !phone
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All address fields are required" });
     }
 
-    const address = await Address.create({ 
-      userId: req.userId, // Use from auth middleware
-      firstName, 
-      lastName, 
-      email, 
-      street, 
-      city, 
-      state, 
-      zipcode, 
-      country, 
-      phone 
+    const address = await Address.create({
+      userId: req.userId,
+      firstName,
+      lastName,
+      email,
+      street,
+      city,
+      district,
+      postalCode,
+      phone,
     });
-    
+
     res.json({ success: true, message: "Address added successfully", address });
   } catch (err) {
     console.error("Add address error:", err);
@@ -39,22 +58,23 @@ export const getAddress = async (req, res) => {
   }
 };
 
-// Add update and delete functionality if needed
 export const updateAddress = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
-    
+
     const address = await Address.findOneAndUpdate(
       { _id: id, userId: req.userId },
       updateData,
       { new: true }
     );
-    
+
     if (!address) {
-      return res.status(404).json({ success: false, message: "Address not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Address not found" });
     }
-    
+
     res.json({ success: true, message: "Address updated", address });
   } catch (err) {
     console.error("Update address error:", err);
@@ -65,13 +85,18 @@ export const updateAddress = async (req, res) => {
 export const deleteAddress = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const address = await Address.findOneAndDelete({ _id: id, userId: req.userId });
-    
+
+    const address = await Address.findOneAndDelete({
+      _id: id,
+      userId: req.userId,
+    });
+
     if (!address) {
-      return res.status(404).json({ success: false, message: "Address not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Address not found" });
     }
-    
+
     res.json({ success: true, message: "Address deleted" });
   } catch (err) {
     console.error("Delete address error:", err);

@@ -7,14 +7,14 @@ import toast from "react-hot-toast";
 const InputField = ({ type, placeholder, name, handleChange, address }) => {
   return (
     <input
-      className="w-full my-2 px-2 py-2.5 border border-gray-500/30 rounded outline-none text-gray-500 focus:border-black transition"
+      className="w-full my-2 px-2 py-2.5 border border-gray-300 rounded outline-none text-black focus:border-black transition"
       type={type}
       placeholder={placeholder}
       onChange={handleChange}
       name={name}
       value={address[name]}
       required
-      aria-label={placeholder} // Add accessibility
+      aria-label={placeholder}
     />
   );
 };
@@ -28,16 +28,14 @@ const AddAddress = () => {
     email: "",
     street: "",
     city: "",
-    state: "",
-    zipcode: "",
-    country: "",
+    district: "",
+    postalCode: "",
     phone: "",
   });
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      // Send the address fields directly, not nested in an "address" object
       const { data } = await axios.post(
         "/api/address/add",
         {
@@ -46,9 +44,8 @@ const AddAddress = () => {
           email: address.email,
           street: address.street,
           city: address.city,
-          state: address.state,
-          zipcode: address.zipcode,
-          country: address.country,
+          district: address.district,
+          postalCode: address.postalCode,
           phone: address.phone,
         },
         { withCredentials: true }
@@ -84,7 +81,7 @@ const AddAddress = () => {
       <p className="text-2xl md:text-3xl text-gray-500">
         Add Shipping <span className="font-semibold text-black">Address</span>
       </p>
-      <div className="flex flex-col-reverse md:flex-row justify-between mt-10">
+      <div className="flex flex-col md:flex-row justify-between md:gap-0 gap-20 mt-10">
         <div className="flex-1 max-w-md">
           <form onSubmit={onSubmitHandler}>
             <div className="grid grid-cols-2 gap-4">
@@ -128,8 +125,8 @@ const AddAddress = () => {
               <InputField
                 handleChange={handleChange}
                 address={address}
-                name="state"
-                placeholder="State"
+                name="district"
+                placeholder="District"
                 type="text"
               />
             </div>
@@ -137,17 +134,11 @@ const AddAddress = () => {
               <InputField
                 handleChange={handleChange}
                 address={address}
-                name="zipcode"
-                placeholder="Zip Code"
-                type="number"
-              />
-              <InputField
-                handleChange={handleChange}
-                address={address}
-                name="country"
-                placeholder="Country"
+                name="postalCode"
+                placeholder="Postal Code"
                 type="text"
               />
+              <div></div>
             </div>
             <InputField
               handleChange={handleChange}

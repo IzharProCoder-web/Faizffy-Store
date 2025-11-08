@@ -19,7 +19,7 @@ export const AppContextProvider = ({ children }) => {
   const [showUserLogin, setShowUserLogin] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
-  const [searchQuery, setSearchQuery] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch Seller Status
   const fetchSeller = async () => {
@@ -99,16 +99,17 @@ export const AppContextProvider = ({ children }) => {
     return totalCount;
   };
 
-  const getCartAmount = () => {
-    let totalAmount = 0;
-    for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
-      if (cartItems[items] > 0) {
-        totalAmount += itemInfo.offerPrice * cartItems[items];
-      }
+const getCartAmount = () => {
+  let totalAmount = 0;
+  for (const itemId in cartItems) {
+    let itemInfo = products.find((product) => product._id === itemId);
+    // Add comprehensive null/undefined checks
+    if (itemInfo && cartItems[itemId] > 0 && itemInfo.offerPrice !== undefined) {
+      totalAmount += itemInfo.offerPrice * cartItems[itemId];
     }
-    return Math.floor(totalAmount * 100) / 100;
-  };
+  }
+  return Math.floor(totalAmount * 100) / 100;
+};
 
   useEffect(() => {
     fetchSeller();

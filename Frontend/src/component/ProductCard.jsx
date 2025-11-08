@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
-  const [count, setCount] = useState(0);
   const [imageLoading, setImageLoading] = useState(true);
+  const [selectedSize, setSelectedSize] = useState("10ml");
 
   const {
     currency,
@@ -15,27 +14,38 @@ const ProductCard = ({ product }) => {
     navigate,
   } = useAppContext();
 
-  // Skeleton loader component for image
   const ImageSkeleton = () => (
-    <div className="h-full w-full bg-gray-200 animate-pulse" />
+    <div className="w-full aspect-[3/4] bg-gray-200 animate-pulse rounded-lg" />
   );
 
-  // Determine if image should be shown (not placeholder)
   const hasImage = product?.image?.[0] && product.image[0] !== "/placeholder.png";
+
+  const discountPercentage = product.price !== product.offerPrice 
+    ? Math.round(((product.price - product.offerPrice) / product.price) * 100)
+    : 0;
+
+  // Size options with their prices
+  const sizeOptions = [
+    { size: "10ml", price: product.offerPrice, originalPrice: product.price },
+    { size: "30ml", price: (product.offerPrice * 1.5).toFixed(2), originalPrice: (product.price * 1.5).toFixed(2) },
+    { size: "50ml", price: (product.offerPrice * 2.5).toFixed(2), originalPrice: (product.price * 2.5).toFixed(2) }
+  ];
+
+  const selectedSizeData = sizeOptions.find(option => option.size === selectedSize);
 
   return (
     product && (
-      <article
-        onClick={() => {
-          if (product?._id) {
-            navigate(`/products/${product._id}`);
-            window.scrollTo(0, 0);
-          }
-        }}
-        className="group cursor-pointer overflow-hidden border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-      >
-        {/* ---------- IMAGE ---------- */}
-        <div className="relative overflow-hidden bg-gray-50">
+      <article className="group cursor-pointer border border-gray-200 bg-white hover:shadow-lg transition-all duration-300 rounded-lg overflow-hidden w-full max-w-xs mx-auto">
+        {/* ---------- IMAGE SECTION ---------- */}
+        <div 
+          className="relative bg-gray-50 aspect-[3/4] overflow-hidden"
+          onClick={() => {
+            if (product?._id) {
+              navigate(`/products/${product._id}`);
+              window.scrollTo(0, 0);
+            }
+          }}
+        >
           {hasImage ? (
             <>
               {imageLoading && <ImageSkeleton />}
@@ -44,7 +54,7 @@ const ProductCard = ({ product }) => {
                 alt={product.name}
                 onLoad={() => setImageLoading(false)}
                 onError={() => setImageLoading(false)}
-                className={`h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 ${
+                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
                   imageLoading ? "opacity-0" : "opacity-100"
                 }`}
                 style={{ position: imageLoading ? "absolute" : "relative" }}
@@ -53,76 +63,109 @@ const ProductCard = ({ product }) => {
           ) : (
             <ImageSkeleton />
           )}
+
+          {/* Discount Badge */}
+          {discountPercentage > 0 && (
+            <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-medium rounded">
+              {discountPercentage}% OFF
+            </div>
+          )}
         </div>
 
-        {/* ---------- CONTENT ---------- */}
-        <div className="flex flex-col gap-2 text-start mb-2 px-4">
-          {/* Title */}
-          <h3 className="truncate text-[18px] font-semibold pt-2 text-gray-900 text-start">
+        {/* ---------- CONTENT SECTION ---------- */}
+        <div className="p-3 sm:p-4">
+          {/* Product Title */}
+          <h3 className="font-bold text-gray-900 mb-1 text-sm sm:text-base line-clamp-2 leading-tight min-h-[2.5rem]">
             {product.name}
           </h3>
 
           {/* Rating */}
-          <div className="flex items-center gap-1 text-sm text-gray-600">
-            {Array.from({ length: 5 }, (_, i) => (
-              <FaStar
-                key={i}
-                className={`h-4 w-4 ${
-                  i < 4 ? "text-black" : "text-gray-300"
-                }`}
-              />
-            ))}
-            <span className="ml-1">(4)</span>
+          <div className="flex items-center gap-1 mb-2">
+            <div className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }, (_, i) => (
+                <FaStar
+                  key={i}
+                  className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${
+                    i < 4 ? "text-yellow-400" : "text-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-gray-600">(4.0)</span>
           </div>
 
-          {/* Price + CTA */}
-          <div className="flex flex-col gap-2">
-            <div className="flex items-end gap-2">
-              <p className="text-lg font-bold text-gray-900">
-                {currency}
-                {product.offerPrice}
-              </p>
-              {product.price !== product.offerPrice && (
-                <del className="text-sm text-gray-400">
-                  {currency}
-                  {product.price}
-                </del>
-              )}
-            </div>
+          {/* Brand */}
+          <p className="text-xs text-gray-500 mb-3 line-clamp-1">Inspire By Scents And Stories</p>
 
-            {/* Add / Counter */}
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center w-full"
-            >
-              {!cartItems[product._id] ? (
+          {/* Size Selection */}
+          <div className="mb-3">
+            <label className="text-xs font-medium text-gray-700 mb-2 block">Size:</label>
+            <div className="flex gap-1 sm:gap-2">
+              {sizeOptions.map((option) => (
+                <button
+                  key={option.size}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSize(option.size);
+                  }}
+                  className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-medium border transition-all duration-200 rounded ${
+                    selectedSize === option.size
+                      ? "bg-black text-white border-black shadow-sm"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+                  }`}
+                >
+                  {option.size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Price Section */}
+          <div className="flex items-center mb-3">
+            <p className="text-sm sm:text-[14px] font-bold text-gray-900">
+              {currency}
+              {selectedSizeData.price}
+            </p>
+            {selectedSizeData.originalPrice !== selectedSizeData.price && (
+              <del className="text-[10px] sm:text-[11px] pl-1.5 text-red-500">
+                {currency}
+                {selectedSizeData.originalPrice}
+              </del>
+            )}
+          </div>
+
+          {/* Add to Cart Button */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full"
+          >
+            {!cartItems[product._id] ? (
+              <button
+                onClick={() => addToCart(product._id)}
+                className="flex items-center justify-center gap-1.5 w-full bg-black hover:bg-gray-800 text-white py-2.5 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-200 rounded-lg hover:shadow-md active:scale-95"
+              >
+                <FaShoppingCart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                Add to Cart
+              </button>
+            ) : (
+              <div className="flex items-center justify-between bg-gray-100 rounded-lg border border-gray-300 p-1">
+                <button
+                  onClick={() => removeFromCart(product._id)}
+                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-gray-700 hover:bg-gray-200 font-medium text-lg transition-colors rounded"
+                >
+                  −
+                </button>
+                <span className="text-sm font-semibold text-gray-900">
+                  {cartItems[product._id]}
+                </span>
                 <button
                   onClick={() => addToCart(product._id)}
-                  className="flex items-center gap-1.5 rounded-lg bg-black px-3 py-1.5 text-sm font-medium text-white transition"
+                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-gray-700 hover:bg-gray-200 font-medium text-lg transition-colors rounded"
                 >
-                  <FaShoppingCart className="h-4 w-4" />
-                  Add
+                  +
                 </button>
-              ) : (
-                <div className="flex h-9 items-center rounded-lg bg-gray-100">
-                  <button
-                    onClick={() => setCount(() => removeFromCart(product._id))}
-                    className="px-2 text-lg font-semibold text-gray-700 hover:text-gray-900"
-                  >
-                    -
-                  </button>
-                  <span className="min-w-[2rem] text-center font-medium">
-                    {cartItems[product._id]}
-                  </span>
-                  <button
-                    onClick={() => setCount(() => addToCart(product._id))}
-                    className="px-2 text-lg font-semibold text-gray-700 hover:text-gray-900"
-                  >
-                    +
-                  </button>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </article>
