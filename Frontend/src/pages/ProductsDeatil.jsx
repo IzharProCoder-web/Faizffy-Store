@@ -89,12 +89,6 @@ const getRandomReviews = () => {
   return shuffled.slice(0, 4);
 };
 
-const sizeOptions = [
-  { size: '10ml', priceMultiplier: 0.4 },
-  { size: '30ml', priceMultiplier: 0.7 },
-  { size: '50ml', priceMultiplier: 1 }
-];
-
 const ProductsDetail = () => {
   const { products, navigate, currency, addToCart } = useAppContext();
   const { id } = useParams();
@@ -102,8 +96,6 @@ const ProductsDetail = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [reviews, setReviews] = useState([]);
-  const [selectedSize, setSelectedSize] = useState('50ml');
-  const [currentPrice, setCurrentPrice] = useState(0);
   
   const product = products.find((item) => item._id === id);
 
@@ -130,7 +122,6 @@ const ProductsDetail = () => {
   useEffect(() => {
     if (product) {
       setThumbnail(product.image[0] ? product.image[0] : null);
-      updatePrice('50ml', product.offerPrice || product.price);
     }
   }, [product]);
 
@@ -138,26 +129,12 @@ const ProductsDetail = () => {
     setReviews(getRandomReviews());
   }, [product]);
 
-  const updatePrice = (size, basePrice) => {
-    const selectedOption = sizeOptions.find(option => option.size === size);
-    if (selectedOption) {
-      const calculatedPrice = (basePrice * selectedOption.priceMultiplier).toFixed(2);
-      setCurrentPrice(parseFloat(calculatedPrice));
-    }
-  };
-
-  const handleSizeChange = (size) => {
-    setSelectedSize(size);
-    const basePrice = product.offerPrice || product.price;
-    updatePrice(size, basePrice);
-  };
-
   const handleAddToCart = () => {
     const productWithSize = {
       ...product,
-      selectedSize,
-      displayPrice: currentPrice,
-      originalPrice: product.offerPrice || product.price
+      selectedSize: '50ml',
+      displayPrice: product.offerPrice || product.price,
+      originalPrice: product.price
     };
     addToCart(productWithSize._id, productWithSize);
   };
@@ -165,9 +142,9 @@ const ProductsDetail = () => {
   const handleBuyNow = () => {
     const productWithSize = {
       ...product,
-      selectedSize,
-      displayPrice: currentPrice,
-      originalPrice: product.offerPrice || product.price
+      selectedSize: '50ml',
+      displayPrice: product.offerPrice || product.price,
+      originalPrice: product.price
     };
     addToCart(productWithSize._id, productWithSize);
     navigate("/cart");
@@ -245,7 +222,7 @@ const ProductsDetail = () => {
     );
   }
 
-  const basePrice = product.offerPrice || product.price;
+  const currentPrice = product.offerPrice || product.price;
 
   return (
     <div className="mt-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -280,21 +257,13 @@ const ProductsDetail = () => {
           </div>
 
           <div className="mb-6">
-            <p className="text-lg font-semibold text-gray-900 mb-3">Select Size</p>
+            <p className="text-lg font-semibold text-gray-900 mb-3">Size</p>
             <div className="flex gap-3">
-              {sizeOptions.map((option) => (
-                <button
-                  key={option.size}
-                  onClick={() => handleSizeChange(option.size)}
-                  className={`px-6 py-3 border-2 rounded-lg font-medium transition-all duration-200 ${
-                    selectedSize === option.size
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-300 text-gray-700 hover:border-gray-400'
-                  }`}
-                >
-                  {option.size}
-                </button>
-              ))}
+              <button
+                className="px-6 py-3 border-2 rounded-lg font-medium border-black bg-black text-white"
+              >
+                50ml
+              </button>
             </div>
           </div>
 
@@ -304,7 +273,7 @@ const ProductsDetail = () => {
                 {currency}
                 {currentPrice}
               </p>
-              {selectedSize === '50ml' && product.offerPrice < product.price && (
+              {product.offerPrice < product.price && (
                 <p className="text-lg text-red-500 line-through">
                   {currency}
                   {product.price}
@@ -313,11 +282,6 @@ const ProductsDetail = () => {
             </div>
             <div className="text-sm text-gray-500">
               <p>(inclusive of all taxes)</p>
-              {selectedSize !== '50ml' && (
-                <p className="text-green-600 font-medium mt-1">
-                  Save {currency}{(basePrice - currentPrice).toFixed(2)} compared to 50ml
-                </p>
-              )}
             </div>
           </div>
 
@@ -363,7 +327,7 @@ const ProductsDetail = () => {
               </div>
               <div>
                 <span className="font-medium text-gray-900">Size:</span>
-                <span className="text-gray-600 ml-2">{selectedSize}</span>
+                <span className="text-gray-600 ml-2">50ml</span>
               </div>
               <div>
                 <span className="font-medium text-gray-900">SKU:</span>

@@ -23,6 +23,7 @@ const Cart = () => {
   const [showAddress, setShowAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentOption, setPaymentOption] = useState("COD");
+  const [addressError, setAddressError] = useState(false);
 
   const getCart = (products) => {
     let tempArray = [];
@@ -48,14 +49,18 @@ const Cart = () => {
         setAddresses(addresses);
         if (addresses.length > 0) {
           setSelectedAddress(addresses[0]);
+          setAddressError(false);
         } else {
           setSelectedAddress(null);
+          setAddressError(true);
         }
       } else {
         toast.error(data.message || "Failed to load addresses");
+        setAddressError(true);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to load addresses");
+      setAddressError(true);
     }
   };
 
@@ -80,6 +85,7 @@ const Cart = () => {
 
       if (!selectedAddress) {
         toast.error("Please select delivery address");
+        setAddressError(true);
         return;
       }
 
@@ -261,7 +267,9 @@ const Cart = () => {
                     <div className="relative">
                       <button
                         onClick={() => setShowAddress(!showAddress)}
-                        className="w-full text-left p-3 border border-gray-300 rounded-lg bg-white hover:border-gray-400 transition-colors"
+                        className={`w-full text-left p-3 border rounded-lg bg-white hover:border-gray-400 transition-colors ${
+                          addressError ? 'border-red-500' : 'border-gray-300'
+                        }`}
                       >
                         {selectedAddress ? (
                           <div>
@@ -293,6 +301,7 @@ const Cart = () => {
                               onClick={() => {
                                 setSelectedAddress(address);
                                 setShowAddress(false);
+                                setAddressError(false);
                               }}
                               className="p-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors"
                             >
@@ -307,6 +316,16 @@ const Cart = () => {
                         </div>
                       )}
                     </div>
+
+                    {/* Address Error Message */}
+                    {addressError && (
+                      <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Please enter the address to proceed with your order
+                      </p>
+                    )}
                   </div>
 
                   <div>
