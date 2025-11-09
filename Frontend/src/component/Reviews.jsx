@@ -169,7 +169,6 @@ const Reviews = () => {
         </Swiper>
 
         {/* Custom Pagination */}
-        <div className="swiper-pagination flex justify-center mt-8 space-x-2"></div>
       </div>
 
       {/* Swiper Styles */}

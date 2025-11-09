@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
   } = useAppContext();
 
   const ImageSkeleton = () => (
-    <div className="w-full aspect-[3/4] bg-gray-200 animate-pulse rounded-lg" />
+    <div className="w-full h-full aspect-[4/3] bg-gray-200 animate-pulse rounded-lg" />
   );
 
   const hasImage = product?.image?.[0] && product.image[0] !== "/placeholder.png";
@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
       <article className="group cursor-pointer border border-gray-200 bg-white hover:shadow-lg transition-all duration-300 rounded-lg overflow-hidden w-full max-w-xs mx-auto">
         {/* ---------- IMAGE SECTION ---------- */}
         <div 
-          className="relative bg-gray-50 aspect-[3/4] overflow-hidden"
+          className="relative bg-gray-50  overflow-hidden"
           onClick={() => {
             if (product?._id) {
               navigate(`/products/${product._id}`);
@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
                 alt={product.name}
                 onLoad={() => setImageLoading(false)}
                 onError={() => setImageLoading(false)}
-                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                className={`w-full h-full  transition-transform duration-500 group-hover:scale-105 ${
                   imageLoading ? "opacity-0" : "opacity-100"
                 }`}
                 style={{ position: imageLoading ? "absolute" : "relative" }}
@@ -73,14 +73,14 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* ---------- CONTENT SECTION ---------- */}
-        <div className="p-3 sm:p-4">
+        <div className="pt-1 pl-1 md:pt-2 md:pl-2">
           {/* Product Title */}
           <h3 className="font-bold text-black text-[16px] sm:text-base ">
             {product.name}
           </h3>
 
           {/* Rating */}
-          <div className="flex items-center gap-1 mb-2">
+          <div className="flex items-center gap-1 mb-0.5">
             <div className="flex items-center gap-0.5">
               {Array.from({ length: 5 }, (_, i) => (
                 <FaStar
@@ -95,11 +95,11 @@ const ProductCard = ({ product }) => {
           </div>
 
           {/* Brand */}
-          <p className="text-xs text-gray-500 mb-3 line-clamp-1">Inspire By Scents And Stories</p>
+          <p className="text-xs text-gray-500 mb-1 line-clamp-1">Inspire By Scents And Stories</p>
 
           {/* Size Selection */}
-          <div className="mb-3">
-            <label className="text-xs font-medium text-gray-700 mb-2 block">Size:</label>
+          <div className="mb-2">
+            <label className="text-xs font-medium text-gray-700 pb-0.5  block">Size:</label>
             <div className="flex gap-1 sm:gap-2">
               {sizeOptions.map((option) => (
                 <button
@@ -108,7 +108,7 @@ const ProductCard = ({ product }) => {
                     e.stopPropagation();
                     setSelectedSize(option.size);
                   }}
-                  className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-medium border transition-all duration-200 rounded ${
+                  className={`flex-1  text-[10px] sm:text-xs font-medium border transition-all duration-200 rounded ${
                     selectedSize === option.size
                       ? "bg-black text-white border-black shadow-sm"
                       : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:bg-gray-50"
@@ -121,7 +121,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           {/* Price Section */}
-          <div className="flex items-center mb-3">
+          <div className="flex items-center mb-1">
             <p className="text-sm sm:text-[14px] font-bold text-gray-900">
               {currency}
               {selectedSizeData.price}

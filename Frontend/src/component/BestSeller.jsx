@@ -48,7 +48,7 @@ const titleVariants = {
 
 const SkeletonCard = () => (
   <motion.div 
-    className="border border-gray-500/20 px-1 bg-white w-full animate-pulse"
+    className="border border-gray-500/20  bg-white w-full animate-pulse"
     variants={itemVariants}
   >
     <div className="group flex items-center justify-center mb-2">

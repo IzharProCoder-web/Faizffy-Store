@@ -13,7 +13,7 @@ const HomeAutoSlider = () => {
 
   return (
     <div 
-      className="overflow-hidden whitespace-nowrap py-4 bg-gradient-to-r from-transparent via-black/10 to-transparent"
+      className="overflow-hidden  p-3"
       role="marquee"
       aria-label="Featured perfume collections"
     >
