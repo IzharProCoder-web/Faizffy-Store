@@ -8,7 +8,19 @@ const HomeAutoSlider = () => {
     "Faziffy Perfumes",
     "Natural Fragrances", 
     "Premium Scents",
-    "Luxury Collections"
+    "Luxury Collections",
+    "Faziffy Perfumes",
+    "Natural Fragrances", 
+    "Premium Scents",
+    "Luxury Collections",
+    "Faziffy Perfumes",
+    "Natural Fragrances", 
+    "Premium Scents",
+    "Luxury Collections",
+    "Faziffy Perfumes",
+    "Natural Fragrances", 
+    "Premium Scents",
+    "Luxury Collections",
   ];
 
   return (
