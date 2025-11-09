@@ -22,6 +22,7 @@ import FAQ from "./pages/FAQ";
 import FirstOrderPopup from "./component/FirstOrderPopup";
 import useFirstOrderPopup from "./hooks/useFirstOrderPopup";
 import { FaWhatsapp } from "react-icons/fa";
+import About from "./pages/About";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
@@ -52,6 +53,8 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<About />} />
+
           <Route path="/contact" element={<ContactUS />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/products" element={<AllProducts />} />

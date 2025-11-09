@@ -153,7 +153,7 @@ const MyOrders = () => {
             })}
 
             {/* COD Note */}
-            <div className="mt-4 pt-3 border-t border-gray-200 text-sm text-gray-500 text-right">
+            <div className="mt-4 pt-3 border-t border-gray-200 text-sm text-gray-500 text-center">
               Payment on Delivery (COD)
             </div>
           </div>

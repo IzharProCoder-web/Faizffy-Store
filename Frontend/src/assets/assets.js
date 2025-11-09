@@ -65,6 +65,8 @@ import vanilla_muffins_image from "./vanilla_muffins_image.png";
 import quinoa_image from "./quinoa_image.png";
 import brown_rice_image from "./brown_rice_image.png";
 import barley_image from "./barley_image.png";
+import store_img from "./Store-img.png";
+
 
 export const assets = {
   logo,
@@ -96,7 +98,7 @@ export const assets = {
   main_banner_bg_sm,
   main_banner_bg_next_sm,
   main_banner_bg,
-
+  store_img,
 };
 
 export const categories = [
@@ -148,30 +150,26 @@ export const footerLinks = [
   {
     title: "Quick Links",
     links: [
-      { text: "Home", url: "#" },
-      { text: "Best Sellers", url: "#" },
-      { text: "Offers & Deals", url: "#" },
-      { text: "Contact Us", url: "#" },
-      { text: "FAQs", url: "#" },
+      { text: "Home", url: "/" },
+      { text: "About Us", url: "/about-us" },
+      { text: "Contact Us", url: "/contact" },
+      { text: "FAQs", url: "/faq" },
     ],
   },
   {
     title: "Need help?",
     links: [
-      { text: "Delivery Information", url: "#" },
-      { text: "Return & Refund Policy", url: "#" },
-      { text: "Payment Methods", url: "#" },
-      { text: "Track your Order", url: "#" },
-      { text: "Contact Us", url: "#" },
+      { text: "Delivery Information", url: "/faq" },
+      { text: "Return & Refund Policy", url: "/faq" },
+      { text: "Contact Us", url: "/contact" },
     ],
   },
   {
     title: "Follow Us",
     links: [
-      { text: "Instagram", url: "#" },
-      { text: "Twitter", url: "#" },
+      { text: "Instagram", url: "https://www.instagram.com/faiziffy.pk/?igsh=Y2FsY2E5eXl4NHVo#" },
+      { text: "Tiktok", url: "https://www.tiktok.com/@faiziffy..pk?_r=1&_t=ZS-91CbbbQfBl2" },
       { text: "Facebook", url: "#" },
-      { text: "YouTube", url: "#" },
     ],
   },
 ];

@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
   const [imageLoading, setImageLoading] = useState(true);
-  const [selectedSize, setSelectedSize] = useState("10ml");
+  const [selectedSize, setSelectedSize] = useState("50ml");
 
   const {
     currency,
@@ -24,10 +24,7 @@ const ProductCard = ({ product }) => {
     ? Math.round(((product.price - product.offerPrice) / product.price) * 100)
     : 0;
 
-  // Size options with their prices
   const sizeOptions = [
-    { size: "10ml", price: product.offerPrice, originalPrice: product.price },
-    { size: "30ml", price: (product.offerPrice * 1.5).toFixed(2), originalPrice: (product.price * 1.5).toFixed(2) },
     { size: "50ml", price: (product.offerPrice * 2.5).toFixed(2), originalPrice: (product.price * 2.5).toFixed(2) }
   ];
 
@@ -36,7 +33,6 @@ const ProductCard = ({ product }) => {
   return (
     product && (
       <article className="group cursor-pointer border border-gray-200 bg-white hover:shadow-lg transition-all duration-300 rounded-lg overflow-hidden w-full max-w-xs mx-auto">
-        {/* ---------- IMAGE SECTION ---------- */}
         <div 
           className="relative bg-gray-50  overflow-hidden"
           onClick={() => {
@@ -64,7 +60,6 @@ const ProductCard = ({ product }) => {
             <ImageSkeleton />
           )}
 
-          {/* Discount Badge */}
           {discountPercentage > 0 && (
             <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-medium rounded">
               {discountPercentage}% OFF
@@ -72,14 +67,11 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* ---------- CONTENT SECTION ---------- */}
         <div className="pt-1 pl-1 md:pt-2 md:pl-2">
-          {/* Product Title */}
           <h3 className="font-bold text-black text-[16px] sm:text-base ">
             {product.name}
           </h3>
 
-          {/* Rating */}
           <div className="flex items-center gap-1 mb-0.5">
             <div className="flex items-center gap-0.5">
               {Array.from({ length: 5 }, (_, i) => (
@@ -94,10 +86,8 @@ const ProductCard = ({ product }) => {
             <span className="text-xs text-gray-600">(4.0)</span>
           </div>
 
-          {/* Brand */}
           <p className="text-xs text-gray-500 mb-1 line-clamp-1">Inspire By Scents And Stories</p>
 
-          {/* Size Selection */}
           <div className="mb-2">
             <label className="text-xs font-medium text-gray-700 pb-0.5  block">Size:</label>
             <div className="flex gap-1 sm:gap-2">
@@ -108,7 +98,7 @@ const ProductCard = ({ product }) => {
                     e.stopPropagation();
                     setSelectedSize(option.size);
                   }}
-                  className={`flex-1  text-[10px] sm:text-xs py-1  font-medium border transition-all duration-200 rounded ${
+                  className={`  text-[10px] sm:text-xs py-1 px-2  font-medium border transition-all duration-200 rounded ${
                     selectedSize === option.size
                       ? "bg-black text-white border-black shadow-sm"
                       : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:bg-gray-50"
@@ -120,7 +110,6 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
 
-          {/* Price Section */}
           <div className="flex items-center mb-1">
             <p className="text-sm sm:text-[14px] font-bold text-gray-900">
               {currency}
@@ -134,7 +123,6 @@ const ProductCard = ({ product }) => {
             )}
           </div>
 
-          {/* Add to Cart Button */}
           <div
             onClick={(e) => e.stopPropagation()}
             className="w-full"

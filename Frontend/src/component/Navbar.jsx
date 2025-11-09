@@ -57,6 +57,7 @@ const Navbar = () => {
         <div className="flex items-center gap-8">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/products">All Products</NavLink>
+          <NavLink to="/about-us">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
 
@@ -203,6 +204,14 @@ const Navbar = () => {
               >
                 All Products
               </NavLink>
+              <NavLink
+                to="/about-us"
+                onClick={() => setOpen(false)}
+                className="py-3 px-2 rounded-lg hover:bg-gray-100 transition"
+              >
+                About-us
+              </NavLink>
+              
               {user && (
                 <NavLink
                   to="/myOrders"

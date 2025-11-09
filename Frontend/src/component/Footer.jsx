@@ -35,14 +35,14 @@ const Footer = () => {
                 <FaFacebookF className="w-6 h-6" />
               </a>
               <a
-                href="https://tiktok.com" // Updated link
+                href="https://www.tiktok.com/@faiziffy..pk?_r=1&_t=ZS-91CbbbQfBl2" // Updated link
                 aria-label="TikTok" // Updated aria-label
                 className="text-gray-500 hover:text-gray-900 transition-colors duration-300"
               >
                 <FaTiktok className="w-6 h-6" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/faiziffy.pk/?igsh=Y2FsY2E5eXl4NHVo#"
                 aria-label="Instagram"
                 className="text-gray-500 hover:text-gray-900 transition-colors duration-300"
               >
