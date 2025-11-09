@@ -84,7 +84,7 @@ const MainBanner = () => {
       </div>
 
       {/* Mobile (<768px) */}
-      <div className="w-full h-[120px] overflow-hidden md:hidden">
+      <div className="w-full h-full overflow-hidden md:hidden">
         <Swiper
           spaceBetween={0}
           slidesPerView={1}

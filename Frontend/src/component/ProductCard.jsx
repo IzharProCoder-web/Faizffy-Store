@@ -108,7 +108,7 @@ const ProductCard = ({ product }) => {
                     e.stopPropagation();
                     setSelectedSize(option.size);
                   }}
-                  className={`flex-1  text-[10px] sm:text-xs font-medium border transition-all duration-200 rounded ${
+                  className={`flex-1  text-[10px] sm:text-xs py-1  font-medium border transition-all duration-200 rounded ${
                     selectedSize === option.size
                       ? "bg-black text-white border-black shadow-sm"
                       : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:bg-gray-50"
