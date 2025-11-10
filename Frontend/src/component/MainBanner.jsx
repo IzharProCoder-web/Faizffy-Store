@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 
 const MainBanner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const banners = [
     {
@@ -22,7 +23,23 @@ const MainBanner = () => {
     },
   ];
 
-  // Auto-slide every 5 seconds
+  useEffect(() => {
+    const imageLoadPromises = banners.map(banner => {
+      return new Promise((resolve) => {
+        const imgLarge = new Image();
+        const imgSmall = new Image();
+        imgLarge.src = banner.large;
+        imgSmall.src = banner.small;
+        imgLarge.onload = resolve;
+        imgSmall.onload = resolve;
+      });
+    });
+
+    Promise.all(imageLoadPromises).then(() => {
+      setLoading(false);
+    });
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banners.length);
@@ -34,9 +51,18 @@ const MainBanner = () => {
     setCurrentIndex(index);
   };
 
+  if (loading) {
+    return (
+      <div className="w-full h-full bg-gray-200 animate-pulse">
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full bg-gray-300"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {/* Desktop & Tablet (≥768px) */}
       <div className="w-full h-full overflow-hidden hidden md:block">
         <Swiper
           spaceBetween={0}
@@ -63,13 +89,12 @@ const MainBanner = () => {
               <img
                 src={banner.large}
                 alt={banner.alt}
-                className="w-full h-full "
+                className="w-full h-full"
               />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Custom Dots */}
         <div className="custom-pagination-desktop absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
           {banners.map((_, index) => (
             <button
@@ -83,7 +108,6 @@ const MainBanner = () => {
         </div>
       </div>
 
-      {/* Mobile (<768px) */}
       <div className="w-full h-full overflow-hidden md:hidden">
         <Swiper
           spaceBetween={0}
@@ -110,13 +134,12 @@ const MainBanner = () => {
               <img
                 src={banner.small}
                 alt={banner.alt}
-                className="w-full h-full "
+                className="w-full h-full"
               />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Custom Dots for Mobile */}
         <div className="custom-pagination-mobile absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
           {banners.map((_, index) => (
             <button
