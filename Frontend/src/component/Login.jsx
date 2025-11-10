@@ -17,7 +17,6 @@ const Login = () => {
       name,email, password
     }, {withCredentials:true})
     if(data.success) {
-      localStorage.setItem("user_token", data.token);
       toast.success(data.message)
       setUser(data.user)
       setShowUserLogin(false)
@@ -42,7 +41,7 @@ const Login = () => {
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
-              placeholder="type here"
+              placeholder="Enter Your Full Name"
               className="border border-gray-200 rounded w-full p-2 mt-1 outline-[#000]"
               type="text"
               required
@@ -54,7 +53,7 @@ const Login = () => {
           <input
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder="type here"
+            placeholder="Enter Your Email"
             className="border border-gray-200 rounded w-full p-2 mt-1 outline-[#000]"
             type="email"
             required
@@ -65,7 +64,7 @@ const Login = () => {
           <input
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            placeholder="type here"
+            placeholder="Enter Your Password"
             className="border border-gray-200 rounded w-full p-2 mt-1 outline-[#000]"
             type="password"
             required

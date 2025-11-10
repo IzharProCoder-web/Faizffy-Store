@@ -64,6 +64,28 @@ const Cart = () => {
     }
   };
 
+  const handleAddAddress = () => {
+    if (!user) {
+      toast.error("Please login to add address");
+      return;
+    }
+    navigate("/add-address");
+  };
+
+  const handleAddressSelection = () => {
+    if (!user) {
+      toast.error("Please login to add address");
+      return;
+    }
+    
+    if (addresses.length === 0) {
+      toast.error("Please login to add address");
+      return;
+    }
+    
+    setShowAddress(!showAddress);
+  };
+
   useEffect(() => {
     if (products.length > 0 && cartItems) {
       getCart(products);
@@ -73,6 +95,10 @@ const Cart = () => {
   useEffect(() => {
     if (user) {
       getUserAddress();
+    } else {
+      setAddresses([]);
+      setSelectedAddress(null);
+      setAddressError(true);
     }
   }, [user]);
 
@@ -80,6 +106,11 @@ const Cart = () => {
     try {
       if (cartArray.length === 0) {
         toast.error("Your cart is empty");
+        return;
+      }
+
+      if (!user) {
+        toast.error("Please login to place order");
         return;
       }
 
@@ -254,7 +285,7 @@ const Cart = () => {
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="font-medium text-gray-900">Delivery Address</h3>
                       <button
-                        onClick={() => navigate("/add-address")}
+                        onClick={handleAddAddress}
                         className="text-sm text-black hover:text-gray-700 font-medium flex items-center gap-1"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,7 +297,7 @@ const Cart = () => {
                     
                     <div className="relative">
                       <button
-                        onClick={() => setShowAddress(!showAddress)}
+                        onClick={handleAddressSelection}
                         className={`w-full text-left p-3 border rounded-lg bg-white hover:border-gray-400 transition-colors ${
                           addressError ? 'border-red-500' : 'border-gray-300'
                         }`}
@@ -281,19 +312,23 @@ const Cart = () => {
                             </p>
                           </div>
                         ) : (
-                          <p className="text-gray-500 text-sm">Select delivery address</p>
+                          <p className="text-gray-500 text-sm">
+                            {!user ? "Please login to add address" : "Select delivery address"}
+                          </p>
                         )}
-                        <svg 
-                          className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${showAddress ? 'rotate-180' : ''}`}
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
+                        {user && addresses.length > 0 && (
+                          <svg 
+                            className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${showAddress ? 'rotate-180' : ''}`}
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        )}
                       </button>
 
-                      {showAddress && addresses.length > 0 && (
+                      {showAddress && user && addresses.length > 0 && (
                         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
                           {addresses.map((address, index) => (
                             <div
@@ -323,7 +358,7 @@ const Cart = () => {
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Please enter the address to proceed with your order
+                        {!user ? "Please login to add address" : "Please enter the address to proceed with your order"}
                       </p>
                     )}
                   </div>
@@ -357,9 +392,9 @@ const Cart = () => {
 
                 <button
                   onClick={placeOrder}
-                  disabled={!selectedAddress}
+                  disabled={!selectedAddress || !user}
                   className={`w-full py-3 mt-6 font-medium rounded-lg transition-colors duration-200 ${
-                    selectedAddress 
+                    selectedAddress && user
                       ? 'bg-black text-white hover:bg-gray-800 cursor-pointer' 
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
