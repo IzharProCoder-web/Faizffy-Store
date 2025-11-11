@@ -132,18 +132,60 @@ const Navbar = () => {
             <span className="font-bold text-lg text-gray-800">FAIZZIFY</span>
           </NavLink>
 
-          <div
-            onClick={() => navigate("/cart")}
-            className="relative cursor-pointer"
-          >
-            <img
-              src={assets.nav_cart_icon}
-              className="w-6 h-6 opacity-80"
-              alt="cart"
-            />
-            <span className="absolute -top-1 -right-1 text-xs text-white bg-black w-4 h-4 rounded-full flex items-center justify-center text-[10px]">
-              {getCartCount()}
-            </span>
+          <div className="flex items-center gap-4">
+            <div
+              onClick={() => navigate("/cart")}
+              className="relative cursor-pointer"
+            >
+              <img
+                src={assets.nav_cart_icon}
+                className="w-6 h-6 opacity-80"
+                alt="cart"
+              />
+              <span className="absolute -top-1 -right-1 text-xs text-white bg-black w-4 h-4 rounded-full flex items-center justify-center text-[10px]">
+                {getCartCount()}
+              </span>
+            </div>
+
+            {!user ? (
+              <button
+                onClick={() => setShowUserLogin(true)}
+                className="px-4 py-1.5 bg-black text-white rounded-full text-xs"
+              >
+                Login
+              </button>
+            ) : (
+              <div className="relative">
+                <img
+                  src={assets.profile_icon}
+                  className="w-7 cursor-pointer"
+                  alt="profile"
+                  onClick={() => setShowMobileMenu(!showMobileMenu)}
+                />
+                {showMobileMenu && (
+                  <div className="absolute top-8 right-0 bg-white shadow-lg border border-gray-200 py-2 w-32 rounded-md text-sm z-50">
+                    <div
+                      onClick={() => {
+                        navigate("/myOrders");
+                        setShowMobileMenu(false);
+                      }}
+                      className="px-3 py-2 hover:bg-black hover:text-white cursor-pointer"
+                    >
+                      My Orders
+                    </div>
+                    <div
+                      onClick={() => {
+                        logout();
+                        setShowMobileMenu(false);
+                      }}
+                      className="px-3 py-2 hover:bg-black hover:text-white cursor-pointer"
+                    >
+                      Logout
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
