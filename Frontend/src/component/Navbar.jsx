@@ -48,7 +48,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="hidden md:flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white">
+      {/* Desktop Navbar - Sticky */}
+      <nav className="hidden md:flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white sticky top-0 z-30">
         <NavLink to="/" className="flex items-center gap-2">
           <img className="w-12 h-12" src={assets.logo} alt="Logo" />
           <p className="font-bold text-xl">FAIZZIFY</p>
@@ -118,8 +119,10 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <div className="md:hidden flex flex-col bg-gray-50 border-b border-gray-200">
-        <div className="flex items-center justify-between px-5 py-3">
+      {/* Mobile Navbar - Only top part sticky */}
+      <div className="md:hidden sticky top-0 z-30 bg-gray-50 border-b border-gray-200">
+        {/* Sticky top section */}
+        <div className="flex items-center justify-between px-5 py-3 bg-gray-50">
           <button onClick={() => setOpen(!open)} aria-label="Menu">
             <img src={assets.menu_icon} className="w-6 h-6" alt="menu" />
           </button>
@@ -144,7 +147,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="px-5 pb-3">
+        {/* Non-sticky search bar section */}
+        <div className="px-5 pb-3 bg-gray-50">
           <div className="flex items-center gap-3 border border-gray-300 bg-white px-4 py-2.5 rounded-full shadow-sm">
             <input
               type="text"
